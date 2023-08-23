@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         primary: '#13ADB7',
+        hover: '#108087',
       },
       backgroundColor: {
         primary: '#13ADB7',
@@ -17,7 +18,7 @@ export default {
         Raleway: ['Raleway', 'sans-serif'],
       },
       backgroundImage: {
-        'login-background': "url('/src/Pages/Login/login-background.png')",
+        'login-background': "url('/src/Pages/Login/img/login-background.png')",
       },
     },
   },
