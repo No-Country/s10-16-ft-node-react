@@ -1,4 +1,5 @@
-import React from 'react';
+import phonePersonal from '../Register/img/phone-personal.png';
+import phoneTercero from '../Register/img/phone-terceros.png';
 
 export const RegisterChoice = () => {
   return (
@@ -13,17 +14,29 @@ export const RegisterChoice = () => {
         <p className="font-bold text-4xl text-white lg:text-black w-2/3">
           Unite a nuestra comunidad
         </p>
-        <p className='text-2xl mt-4 text-white lg:text-black w-2/3'>Elegí el rol que sea más adecuado para vos.</p>
+        <p className="text-2xl mt-4 text-white lg:text-black w-2/3">
+          Elegí el rol que sea más adecuado para vos.
+        </p>
         <form className="grid grid-cols-2 gap-9 px-4 lg:p-1 mt-14">
-          <div className='bg-white hover:text-white hover:bg-primary transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6'>
-            <h2>img</h2>
-            <h2 className='font-bold text-2xl'>Terceros</h2>
-            <p className='text-xl w-2/3'>Para organizaciones o empresas.</p>
+          <div className="bg-white hover:text-white hover:bg-primary transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6">
+            <img
+              src={phoneTercero}
+              alt=""
+              className="w-10 aspect-square object-contain"
+            />
+            <h2 className="font-bold text-2xl">Terceros</h2>
+            <p className="text-xl w-2/3">Para organizaciones o empresas.</p>
           </div>
-          <div className='bg-white hover:text-white hover:bg-primary transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6  '>
-            <h2>img</h2>
-            <h2 className='font-bold text-2xl'>Personal</h2>
-            <p className='text-xl w-2/3'>Crea tu crowfunding o ayuda a otros.</p>
+          <div className="bg-white hover:text-white hover:bg-primary transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6  ">
+            <img
+              src={phonePersonal}
+              alt=""
+              className="w-10 aspect-square object-contain"
+            />
+            <h2 className="font-bold text-2xl">Personal</h2>
+            <p className="text-xl w-2/3">
+              Crea tu crowfunding o ayuda a otros.
+            </p>
           </div>
           <button className="col-span-2 p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base mt-10">
             Continuar
