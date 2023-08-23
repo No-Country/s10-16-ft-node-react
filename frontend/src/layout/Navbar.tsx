@@ -73,7 +73,7 @@ export const Navbar: FC = () => {
           <div className="w-full flex justify-end items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative sm:block hidden rounded-lg bg-[#13ADB7] p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
+              className="relative sm:block hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
             >
               Iniciar sesión
             </button>
@@ -102,7 +102,7 @@ export const Navbar: FC = () => {
         <div className="px-5 pb-3 pt-2">
           <button
             type="button"
-            className="relative sm:block md:hidden rounded-lg bg-[#13ADB7] p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
+            className="relative sm:hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
           >
             Iniciar sesión
           </button>
