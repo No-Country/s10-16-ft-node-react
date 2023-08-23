@@ -18,7 +18,7 @@ export const Navbar: FC = () => {
     <nav className="bg-[#F2F5F7] font-Ubuntu">
       <div className="mx-auto max-w-[90rem] px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-[3.75rem] items-center justify-between">
-          <div className="absolute inset-y-0 sm:left-0 right-0 flex items-center md:hidden">
+          <div className="absolute inset-y-0 xs:left-0 right-0 flex items-center md:hidden">
             <button
               type="button"
               className="relative inline-flex items-center justify-center rounded-md p-2 text-[#6E6E6E]"
@@ -53,7 +53,7 @@ export const Navbar: FC = () => {
               </svg>
             </button>
           </div>
-          <div className="flex flex-1 absolute w-full items-center justify-center md:items-stretch md:justify-start">
+          <div className="flex flex-1 absolute w-full items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 md:block w-full">
               <ul className="flex text-[#6E6E6E] gap-[1.5rem] text-xs font-normal justify-center w-full">
                 {navigation.map((nav) => (
@@ -73,7 +73,7 @@ export const Navbar: FC = () => {
           <div className="w-full flex justify-end items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <button
               type="button"
-              className="relative sm:block hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
+              className="relative xs:block hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
             >
               Iniciar sesión
             </button>
@@ -102,7 +102,7 @@ export const Navbar: FC = () => {
         <div className="px-5 pb-3 pt-2">
           <button
             type="button"
-            className="relative sm:hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
+            className="relative xs:hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
           >
             Iniciar sesión
           </button>
