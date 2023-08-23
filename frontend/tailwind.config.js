@@ -5,8 +5,6 @@ export default {
     extend: {
       colors:{
         primary: '#13ADB7',
-        white: '#ffffff'
-        
       },
       fontFamily:{
         Ubuntu: ['Ubuntu', 'sans-serif'],
