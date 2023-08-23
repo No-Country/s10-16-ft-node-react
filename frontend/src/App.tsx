@@ -2,13 +2,18 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmailPage from './Pages/EmailPage';
 import { Login } from './Pages/Login/Login';
 import { Register } from './Pages/Register';
+import { LayoutAuth } from './Layout/LayoutAuth';
+import { RegisterChoice } from './Pages/RegisterChoice';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path='auth/' element={<LayoutAuth />}>
+          <Route index element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="registerChoice" element={<RegisterChoice />} />
+        </Route>
         <Route path="sendEmail" element={<EmailPage />} />
         <Route path="/" />
       </Routes>
