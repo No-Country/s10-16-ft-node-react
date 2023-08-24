@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmailPage from './Pages/EmailPage';
 import { Login } from './Pages/Login/Login';
-import { Register } from './Pages/Register/Register';
 import { LayoutAuth } from './Layout/LayoutAuth';
+import { Register } from './Pages/Register/Register';
 import { RegisterChoice } from './Pages/Register/RegisterChoice';
+import { HomePage } from './pages/HomePage';
 import { Navbar } from './components/layout';
 
 function App() {
