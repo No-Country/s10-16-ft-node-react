@@ -35,7 +35,7 @@ export const HomePage = () => {
         </div>
       </div>
 
-      <div className='flex w-screen py-2.5 justify-center items-center' >
+      <div className='flex w-full py-2.5 justify-center items-center' >
         <h2 className=" text-primary text-center font-Raleway text-[35px]  font-bold leading-[50px] py-2.5 gap-[10px] ">¿Cómo Funciona?</h2>
       </div>
 
