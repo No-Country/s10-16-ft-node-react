@@ -18,7 +18,7 @@ function App() {
           <Route path="registerChoice" element={<RegisterChoice />} />
         </Route>
         <Route path="sendEmail" element={<EmailPage />} />
-        <Route path="/" />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
