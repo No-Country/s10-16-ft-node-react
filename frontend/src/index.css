@@ -2,3 +2,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* register & login css */
+.input {
+  @apply transition duration-200 ease-in-out;
+}
+
+.input:focus,
+.input:active,
+.input.filled {
+  @apply transition-all duration-500 ease-out pt-6 pb-2;
+}
+
+.input:focus + .label,
+.input:active + .label,
+.input.filled + .label {
+  @apply text-xs transition-all duration-500 ease-out mt-2;
+}
