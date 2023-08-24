@@ -14,3 +14,22 @@ model user {
   id   String @id @default(uuid())
   name String
 }
+
+model accounts {
+  id   String @id @default(uuid())
+  email String @unique
+  password String @unique
+  address String?
+  postal_code String?
+  phone_number Int?
+  profile_picture String?
+  country String?
+  document_type String?
+  document_number Int?
+  first_name String?
+  last_name String?
+  verified Boolean?
+  is_active Boolean?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+}

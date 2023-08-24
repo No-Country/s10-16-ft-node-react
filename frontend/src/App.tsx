@@ -4,10 +4,12 @@ import { Login } from './Pages/Login/Login';
 import { Register } from './Pages/Register/Register';
 import { LayoutAuth } from './Layout/LayoutAuth';
 import { RegisterChoice } from './Pages/Register/RegisterChoice';
+import { Navbar } from './components/layout';
 
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="auth/" element={<LayoutAuth />}>
           <Route index element={<Login />} />

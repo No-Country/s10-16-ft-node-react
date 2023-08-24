@@ -20,6 +20,9 @@ export default {
       backgroundImage: {
         'login-background': "url('/src/Pages/Login/img/login-background.png')",
       },
+      screens: {
+        'xs': '428px'
+      }
     },
   },
   plugins: [],
