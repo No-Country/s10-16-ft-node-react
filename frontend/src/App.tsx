@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EmailPage from './pages/EmailPage';
+import { HomePage } from './pages/HomePage';
 import { Navbar } from './components/layout';
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path='/'/>
+        <Route path='/' element={<HomePage />}/>
         <Route path='sendEmail' element={<EmailPage />}/>
       </Routes>
     </BrowserRouter>
