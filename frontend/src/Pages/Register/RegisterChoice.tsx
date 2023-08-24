@@ -1,7 +1,14 @@
+import { useState } from 'react';
 import phonePersonal from '../Register/img/phone-personal.png';
 import phoneTercero from '../Register/img/phone-terceros.png';
 
 export const RegisterChoice = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleChoice = () => {
+    setIsClicked(!isClicked);
+  };
+
   return (
     <div className="lg:w-3/5 w-full flex md:px-16 lg:pr-0 px-0 z-0">
       <div className="absolute lg:hidden z-10 inset-0 bg-login-background bg-no-repeat bg-cover bg-center items-center bg-[#66928c]">
@@ -18,7 +25,14 @@ export const RegisterChoice = () => {
           Elegí el rol que sea más adecuado para vos.
         </p>
         <form className="grid grid-cols-2 gap-9 px-4 lg:p-1 mt-14">
-          <div className="bg-white hover:text-white hover:bg-primary transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6">
+          <div
+            className={`${
+              isClicked
+                ? 'bg-primary text-white cursor-pointer'
+                : 'hover:bg-primary hover:text-white cursor-pointer bg-white text-black'
+            } transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6`}
+            onClick={handleChoice}
+          >
             <img
               src={phoneTercero}
               alt=""
@@ -27,7 +41,14 @@ export const RegisterChoice = () => {
             <h2 className="font-bold text-2xl">Terceros</h2>
             <p className="text-xl w-2/3">Para organizaciones o empresas.</p>
           </div>
-          <div className="bg-white hover:text-white hover:bg-primary transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6  ">
+          <div
+            className={`${
+              isClicked
+                ? 'bg-primary text-white cursor-pointer'
+                : 'hover:bg-primary hover:text-white cursor-pointer bg-white text-black'
+            } transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6`}
+            onClick={handleChoice}
+          >
             <img
               src={phonePersonal}
               alt=""
