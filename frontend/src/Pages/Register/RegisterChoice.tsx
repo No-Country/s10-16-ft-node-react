@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import phonePersonal from '../Register/img/phone-personal.png';
 import phoneTercero from '../Register/img/phone-terceros.png';
+import { Link } from 'react-router-dom';
 
 export const RegisterChoice = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -60,7 +61,7 @@ export const RegisterChoice = () => {
             </p>
           </div>
           <button className="col-span-2 p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base mt-10">
-            Continuar
+            <Link to="register">Continuar</Link>
           </button>
         </form>
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
