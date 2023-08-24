@@ -10,6 +10,9 @@ export default {
         Ubuntu: ['Ubuntu', 'sans-serif'],
         Poppins: ['Poppins', 'sans-serif'],
         Raleway : ['Raleway', 'sans-serif']
+      },
+      screens: {
+        'xs': '428px'
       }
     },
   },
