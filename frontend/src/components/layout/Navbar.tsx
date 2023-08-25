@@ -53,14 +53,14 @@ export const Navbar: FC = () => {
               </svg>
             </button>
           </div>
-          <div className="flex flex-1 absolute w-full items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="absolute flex flex-1 w-full items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 md:block w-full">
               <ul className="flex text-[#6E6E6E] gap-[1.5rem] text-xs font-normal justify-center w-full">
                 {navigation.map((nav) => (
                   <li key={nav.name}>
                     <Link
                       to={nav.to}
-                      className="rounded-md px-3 py-2"
+                      className="py-[2px] hover:border-b-2 border-primary"
                       aria-current="page"
                     >
                       {nav.name}
@@ -70,18 +70,18 @@ export const Navbar: FC = () => {
               </ul>
             </div>
           </div>
-          <div className="w-full flex justify-end items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button
-              type="button"
-              className="relative xs:block hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
+          <div className="w-full justify-end flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <Link
+              to="/auth"
+              className="relative xs:block hidden rounded-lg bg-primary py-[0.4rem] px-3 hover:ring-2 hover:ring-primary text-white text-[18px] font-normal leading-5"
             >
               Iniciar sesión
-            </button>
+            </Link>
           </div>
         </div>
       </div>
       <div
-        className={`bg-[#F2F5F7] w-full md:flex transition-all duration-300 ease-in-out absolute ${
+        className={`bg-[#F2F5F7] z-10 w-full md:flex transition-all duration-300 ease-in-out absolute ${
           openMenu ? 'opacity-100 max-h-full' : 'opacity-0 max-h-0'
         }`}
         id="mobile-menu"
@@ -100,12 +100,12 @@ export const Navbar: FC = () => {
           ))}
         </ul>
         <div className="px-5 pb-3 pt-2">
-          <button
-            type="button"
-            className="relative xs:hidden rounded-lg bg-primary p-[10px] text-white hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 text-lg font-medium leading-5"
+          <Link
+            to="/auth"
+            className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"
           >
             Iniciar sesión
-          </button>
+          </Link>
         </div>
       </div>
     </nav>
