@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import EmailPage from './pages/EmailPage';
-import { Login } from './Pages/Login/Login';
+import EmailPage from './pages/EmailPage.tsx';
+import { Login } from './Pages/Login/Login.tsx';
 import { LayoutAuth } from './Layout/LayoutAuth';
-import { Register } from './Pages/Register/Register';
-import { RegisterChoice } from './Pages/Register/RegisterChoice';
-import { HomePage } from './pages/HomePage';
+import { Register } from './Pages/Register/Register.tsx';
+import { RegisterChoice } from './Pages/Register/RegisterChoice.tsx';
+import { HomePage } from './pages/HomePage.tsx';
 import { Navbar } from './components/layout';
 
 function App() {
