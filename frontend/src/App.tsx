@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmailPage from './pages/EmailPage';
-import { Login } from './pages/Login/Login';
+import { Login } from './pages/Login/Login.tsx';
 import { LayoutAuth } from './Layout/LayoutAuth';
 import { Register } from './pages/Register/Register';
 import { RegisterChoice } from './pages/Register/RegisterChoice';
