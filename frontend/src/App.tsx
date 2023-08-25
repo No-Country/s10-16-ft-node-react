@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import EmailPage from './Pages/EmailPage';
-import { Login } from './Pages/Login/Login';
+import EmailPage from './pages/EmailPage';
+import { Login } from './pages/Login/Login';
 import { LayoutAuth } from './Layout/LayoutAuth';
-import { Register } from './Pages/Register/Register';
-import { RegisterChoice } from './Pages/Register/RegisterChoice';
-import { HomePage } from './Pages/HomePage';
+import { Register } from './pages/Register/Register';
+import { RegisterChoice } from './pages/Register/RegisterChoice';
+import { HomePage } from './pages/HomePage';
 import { Navbar } from './components/layout';
 
 function App() {
