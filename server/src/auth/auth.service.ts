@@ -7,12 +7,18 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prismaService: PrismaService,
-    private readonly jwtService: JwtService) { }
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly jwtService: JwtService,
+  ) { }
   async register(userObject: RegisterAuthDto) {
-    const { password } = userObject;
+    const { password, email } = userObject;
+    const findUser = await this.prismaService.accounts.findUnique({
+      where: { email },
+    });
+    if (findUser) throw new HttpException('Email Already Registered', 409);
     const plainToHash = await hash(password, 10);
-    userObject = { ...userObject, password: plainToHash };
+    userObject = { ...userObject, password: plainToHash, is_active: true };
     return this.prismaService.accounts.create({ data: userObject });
   }
 
@@ -22,6 +28,7 @@ export class AuthService {
       where: { email },
     });
     if (!findUser) throw new HttpException('User not found', 404);
+    if (!findUser.is_active) throw new HttpException('Account deleted', 404)
     const checkPassword = await compare(password, findUser.password);
     if (!checkPassword) throw new HttpException('Password incorrect', 403);
 

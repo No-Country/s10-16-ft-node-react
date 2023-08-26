@@ -1,26 +1,52 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
+import { HttpException, Injectable } from '@nestjs/common';
 import { UpdateAccountDto } from './dto/update-account.dto';
-
+import { PrismaService } from 'src/service.prisma';
+import { hash, compare } from 'bcrypt';
 @Injectable()
 export class AccountsService {
-  create(createAccountDto: CreateAccountDto) {
-    return 'This action adds a new account';
-  }
+  constructor(private readonly prismaService: PrismaService) { }
 
-  findAll() {
-    return `This action returns all accounts`;
+  async findOne(email: string) {
+    const findAccount = await this.prismaService.accounts.findUnique({
+      where: { email },
+    });
+    return findAccount;
   }
-
-  findOne(id: number) {
-    return `This action returns a #${id} account`;
+  async update(email: string, updateAccountDto: UpdateAccountDto) {
+    // if you dont change password
+    if (!updateAccountDto.password) {
+      const updatedAccount = await this.prismaService.accounts.update({
+        where: { email },
+        data: updateAccountDto,
+      });
+      return updatedAccount;
+    }
+    // if you change password
+    const findAccount = await this.prismaService.accounts.findUnique({
+      where: { email },
+    });
+    const comparison = await compare(
+      updateAccountDto.password,
+      findAccount.password,
+    );
+    if (comparison) {
+      throw new HttpException('Password is the same', 409);
+    } else {
+      const plainToHash = await hash(updateAccountDto.password, 10);
+      const updatedAccount = await this.prismaService.accounts.update({
+        where: { email },
+        data: { ...updateAccountDto, password: plainToHash },
+      });
+      return updatedAccount;
+    }
   }
-
-  update(id: number, updateAccountDto: UpdateAccountDto) {
-    return `This action updates a #${id} account`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} account`;
+  async remove(email: string) {
+    const deletedAccount = await this.prismaService.accounts.update({
+      where: { email },
+      data: {
+        is_active: false,
+      }
+    });
+    return deletedAccount;
   }
 }
