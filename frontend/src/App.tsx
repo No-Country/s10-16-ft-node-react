@@ -5,6 +5,7 @@ import { LayoutAuth } from './Layout/LayoutAuth';
 import { Register } from './Views/Register/Register.tsx';
 import { RegisterChoice } from './Views/Register/RegisterChoice.tsx';
 import { HomePage } from './Views/HomePage.tsx';
+
 import { Navbar } from './components/layout';
 
 function App() {
