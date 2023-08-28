@@ -1,6 +1,12 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsOptional, IsString, IsBoolean, IsInt, MinLength, IsEmail, MaxLength } from 'class-validator';
+import { IsOptional, IsString, IsBoolean, IsInt, MinLength, IsEmail, MaxLength, IsEnum } from 'class-validator';
 import { LoginAuthDto } from './login-auth.dto';
+
+
+enum AccountType {
+  PERSONAL = 'PERSONAL',
+  COMPANY = 'COMPANY',
+}
 
 export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsEmail()
@@ -13,6 +19,9 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsOptional()
   @IsString()
   address?: string;
+
+  @IsEnum(AccountType)
+  type: AccountType;
 
   @IsOptional()
   @IsString()
