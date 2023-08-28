@@ -1,8 +1,4 @@
-import world from '../assets/worldTogether.png';
-import paso1 from '../assets/paso1.png';
-import paso2 from '../assets/paso2.png';
-import paso3 from '../assets/paso3.png';
-import saly from '../assets/saly.png';
+import { world, paso1, paso2, paso3, saly } from '../assets';
 
 type Paso = {
   img: string,

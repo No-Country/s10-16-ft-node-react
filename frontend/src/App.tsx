@@ -1,12 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import EmailPage from './Views/EmailPage.tsx';
-import { Login } from './Views/Login/Login.tsx';
+import { HomePage, EmailPage } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
-import { Register } from './Views/Register/Register.tsx';
-import { RegisterChoice } from './Views/Register/RegisterChoice.tsx';
-import { HomePage } from './Views/HomePage.tsx';
-
 import { Navbar } from './components/layout';
+import { Login, Register, RegisterChoice } from './auth';
 
 function App() {
   return (
