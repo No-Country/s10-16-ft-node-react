@@ -1,6 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+enum AccountType {
+  PERSONAL
+  COMPANY
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,6 +25,7 @@ model accounts {
   email String @unique
   password String @unique
   address String?
+  type AccountType @default(PERSONAL)
   postal_code String?
   phone_number Int?
   profile_picture String?

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import phonePersonal from '../Register/img/phone-personal.png';
-import phoneTercero from '../Register/img/phone-terceros.png';
+import { phonePersonal, phoneTercero } from '../../assets';
 import { Link } from 'react-router-dom';
 
 export const RegisterChoice = () => {
