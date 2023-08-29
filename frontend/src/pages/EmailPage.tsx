@@ -1,6 +1,7 @@
-import hand from '../assets/handsPoint.png';
+import { hand } from '../assets';
 import { Link } from 'react-router-dom';
-const EmailPage = () => {
+
+export const EmailPage = () => {
   return (
     <div className="flex flex-col w-screen h-screen">
       <div className='flex flex-col gap-6'>
@@ -17,5 +18,3 @@ const EmailPage = () => {
     </div>
   );
 };
-
-export default EmailPage;
