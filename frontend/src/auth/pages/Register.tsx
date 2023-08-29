@@ -20,7 +20,16 @@ export const Register = () => {
 
 
   const onSubmit: SubmitHandler<Inputs> = async (data)  =>{
-    await singUp(data);
+    const { repeatPassword, ...dataWithoutRepeatPassword } = data;
+    
+    const updateData = {
+      ...dataWithoutRepeatPassword,
+      type: 'PERSONAL',
+    };
+
+    console.log(updateData);
+    
+    singUp(updateData);
   };
 
   return (

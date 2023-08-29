@@ -72,7 +72,7 @@ export const Navbar: FC = () => {
           </div>
           <div className="w-full justify-end flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Link
-              to="/auth"
+              to="/auth/login"
               className="relative xs:block hidden rounded-lg bg-primary py-[0.4rem] px-3 hover:ring-2 hover:ring-primary text-white text-[18px] font-normal leading-5"
             >
               Iniciar sesión
@@ -101,7 +101,7 @@ export const Navbar: FC = () => {
         </ul>
         <div className="px-5 pb-3 pt-2">
           <Link
-            to="/auth"
+            to="/auth/login"
             className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"
           >
             Iniciar sesión
