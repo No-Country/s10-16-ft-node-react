@@ -14,7 +14,7 @@ export const PopUpDonation = () => {
             <p>Tu donacion sera para : <span>ProSkills</span></p>
           </div>
         </div>
-        <div>${amount}</div>
+        <div>$ amount</div>
         <hr />
         <div className='flex'>
           <div>
