@@ -1,20 +1,19 @@
 import { imgExample } from '../../assets';
-import { useState } from 'react';
+import { CaretLeft } from '@phosphor-icons/react';
 export const PopUpDonation = () => {
-  const [amount, setAmount] = useState(undefined);
 
   return (
     <section className="w-[550px] h-[843px] m-auto">
       <div>
-        <button> Volver a la donacion </button>
-        <div>
+        <button className='flex items-center px-3 font-Poppins text-sm gap-3 border-solid border-disabled border-[1px] rounded-md'><CaretLeft /><p className='p-2.5'>Volver a la donacion </p></button>
+        <div className='flex'>
           <img src={imgExample} alt="" />
           <div>
-            <p> Estas apoyando a : <span>La educacion</span></p>
-            <p>Tu donacion sera para : <span>ProSkills</span></p>
+            <p className='font-Poppins text-sm'> Estas apoyando a : <span className=' text-primary'>La educacion</span></p>
+            <p className='font-Poppins text-sm'>Tu donacion sera para : <span className='text-primary'>ProSkills</span></p>
           </div>
         </div>
-        <div>${amount}</div>
+        <div>$ amount</div>
         <hr />
         <div className='flex'>
           <div>
@@ -74,6 +73,25 @@ export const PopUpDonation = () => {
             <label htmlFor='emailProyect'>Obtener ocasionalmente Email sobre nuevos proyectos</label>
           </div>
         </div>
+        <div>
+          <p>Tu donacion</p>
+          <div>
+            <div>
+              <p>Tu donacion</p>
+              <p>$ 100</p>
+            </div>
+            <div>
+              <p>Impuestos</p>
+              <p>0%</p>
+            </div>
+            <hr />
+            <div>
+              <p>Total</p>
+              <p>$ 100</p>
+            </div>
+          </div>
+        </div>
+        <button>Pagar ahora</button>
       </div>
     </section>
   );
