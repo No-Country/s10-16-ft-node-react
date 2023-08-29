@@ -10,7 +10,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="auth/" element={<LayoutAuth />}>
-          <Route index element={<Login />} />
+          <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="registerChoice" element={<RegisterChoice />} />
         </Route>
