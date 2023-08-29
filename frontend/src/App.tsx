@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage, EmailPage } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
-import { Navbar } from './components/layout';
+import { Navbar, PopUpDonation } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
         </Route>
         <Route path="sendEmail" element={<EmailPage />} />
         <Route path="/" element={<HomePage />} />
+        <Route path="donation" element={<PopUpDonation />} />
       </Routes>
     </BrowserRouter>
   );

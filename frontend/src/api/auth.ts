@@ -2,12 +2,13 @@ import axios from 'axios';
 import create from 'zustand';
 
 
-const API = 'URL';
+const API = 'https://rallyfund.onrender.com';
 type User = {
-  first_name: string,
-  last_name: string,
   email: string,
   password: string
+  first_name: string,
+  last_name: string,
+  type: string
 };
 
 type AuthStore = {
@@ -17,7 +18,7 @@ type AuthStore = {
 export const useAuthStore = create<AuthStore>(()=>({
   singUp: async (user)=>{
     try {
-      const res = await axios.post(`${API}/register`, user);
+      const res = await axios.post(`${API}/auth/register`, user);
       console.log(res.data);
     } catch (error) {
       console.error(error);    
