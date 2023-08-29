@@ -1,7 +1,7 @@
 import { imgExample } from '../../assets';
-import { useState } from 'react';
+
 export const PopUpDonation = () => {
-  const [amount, setAmount] = useState(undefined);
+
 
   return (
     <section className="w-[550px] h-[843px] m-auto">
