@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { phonePersonal, phoneTercero } from '../../assets';
 import { Link } from 'react-router-dom';
+import { useBgStore } from '../../store/store';
 
 export const RegisterChoice = () => {
   // const [isClicked, setIsClicked] = useState(false);
@@ -8,6 +9,12 @@ export const RegisterChoice = () => {
 
   const handleChoice = (choice: string) => {
     setSelectedChoice(choice === selectedChoice ? null : choice);
+  };
+
+  const { setBackgroundClass } = useBgStore();
+
+  const handleBackgroundChange = (newClass: string) => {
+    setBackgroundClass(newClass);
   };
 
   return (
@@ -63,6 +70,9 @@ export const RegisterChoice = () => {
           <Link
             to="../register"
             className="col-span-2 p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base text-center mt-10"
+            onClick={() => {
+              handleBackgroundChange('bg-register-background');
+            }}
           >
             <button>Continuar</button>
           </Link>
@@ -70,7 +80,14 @@ export const RegisterChoice = () => {
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
           <p className="text-white lg:text-black">¿Ya tenes una cuenta?</p>
           <p className="text-primary hover:text-hover font-bold underline cursor-pointer">
-            <Link to="../login">Ingresá</Link>
+            <Link
+              to="../login"
+              onClick={() => {
+                handleBackgroundChange('bg-login-background');
+              }}
+            >
+              Ingresá
+            </Link>
           </p>
         </div>
       </div>

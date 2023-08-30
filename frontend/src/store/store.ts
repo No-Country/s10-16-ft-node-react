@@ -6,6 +6,6 @@ interface BgStoreState {
 }
 
 export const useBgStore = create<BgStoreState>()((set) => ({
-  backgroundClass: 'bg-login-background',
+  backgroundClass: 'bg-register-background',
   setBackgroundClass: (className) => set({ backgroundClass: className }),
 }));

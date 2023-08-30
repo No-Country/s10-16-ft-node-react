@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useBgStore } from '../../store/store';
 
 type Inputs = {
   email: string;
@@ -13,6 +14,12 @@ export const Login = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     login(data);
+  };
+
+  const { setBackgroundClass } = useBgStore();
+
+  const handleBackgroundChange = (newClass: string) => {
+    setBackgroundClass(newClass);
   };
 
   return (
@@ -73,6 +80,9 @@ export const Login = () => {
             <button
               type="submit"
               className="text-primary hover:text-hover font-bold underline cursor-pointer"
+              onClick={() => {
+                handleBackgroundChange('bg-registerchoice-background');
+              }}
             >
               <Link to="../registerchoice">Registrate</Link>
             </button>

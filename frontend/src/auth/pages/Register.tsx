@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useBgStore } from '../../store/store';
 
 type Inputs = {
   first_name: string;
@@ -26,6 +27,12 @@ export const Register = () => {
     console.log(updateData);
 
     singUp(updateData);
+  };
+
+  const { setBackgroundClass } = useBgStore();
+
+  const handleBackgroundChange = (newClass: string) => {
+    setBackgroundClass(newClass);
   };
 
   return (
@@ -126,7 +133,14 @@ export const Register = () => {
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
           <p className="text-white lg:text-black">¿Ya tenes una cuenta?</p>
           <p className="text-primary hover:text-hover font-bold underline cursor-pointer">
-            <Link to="../login">Ingresá</Link>
+            <Link
+              to="../login"
+              onClick={() => {
+                handleBackgroundChange('bg-login-background');
+              }}
+            >
+              Ingresá
+            </Link>
           </p>
         </div>
       </div>
