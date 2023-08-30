@@ -16,7 +16,7 @@ export const Navbar: FC = () => {
   ];
   return (
     <nav className="bg-[#F2F5F7] font-Ubuntu">
-      <div className="mx-auto max-w-[90rem] px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[65rem] px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-[3.75rem] items-center justify-between">
           <div className="absolute inset-y-0 xs:left-0 right-0 flex items-center md:hidden">
             <button

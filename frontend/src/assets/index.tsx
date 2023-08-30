@@ -6,5 +6,7 @@ import paso1 from './paso1.png';
 import paso2 from './paso2.png';
 import paso3 from './paso3.png';
 import saly from './saly.png';
+import landing from './LandingPage1.png';
+import similar from './ProyectosSimilares.png';
 
-export { phonePersonal, phoneTercero, hand, world, paso1, paso2, paso3, saly };
+export { phonePersonal, phoneTercero, hand, world, paso1, paso2, paso3, saly, landing, similar };
