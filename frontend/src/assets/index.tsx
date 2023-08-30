@@ -9,4 +9,5 @@ import saly from './saly.png';
 import imgExample from './imgExample.png';
 import landing from './LandingPage1.png';
 import similar from './ProyectosSimilares.png';
+
 export { phonePersonal, phoneTercero, hand, world, paso1, paso2, paso3, saly, imgExample, landing, similar  };
