@@ -11,7 +11,7 @@ export const RegisterChoice = () => {
     setSelectedChoice(choice === selectedChoice ? null : choice);
   };
 
-  const { setBackgroundClass } = useBgStore();
+  const { backgroundClass, setBackgroundClass } = useBgStore();
 
   const handleBackgroundChange = (newClass: string) => {
     setBackgroundClass(newClass);
@@ -19,7 +19,9 @@ export const RegisterChoice = () => {
 
   return (
     <div className="lg:w-3/5 w-full flex md:px-16 lg:pr-0 px-0 z-0">
-      <div className="absolute lg:hidden z-10 inset-0 bg-login-background bg-no-repeat bg-cover bg-center items-center bg-[#66928c]">
+      <div
+        className={`absolute lg:hidden z-10 inset-0 ${backgroundClass} bg-no-repeat bg-cover bg-center items-center bg-[#66928c]`}
+      >
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
       </div>
       <div className="w-full h-full lg:h-full py-6 z-20">
