@@ -60,7 +60,7 @@ export const HomePage = () => {
           <div className='flex flex-col  items-start gap-6 '>
    
             <p>RallyFund y su genial comunidad han llevado mi proyecto innovador a alcanzar cientos de personas alrededor del mundo.</p>
-
+            <p>RallyFund y su genial comunidad han llevado mi proyecto innovador a alcanzar cientos de personas alrededor del mundo.</p>
             <p>Regina Miles</p>
             <p>Designer</p>
     
