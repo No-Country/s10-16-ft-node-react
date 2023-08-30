@@ -1,6 +1,22 @@
 import { Link } from 'react-router-dom';
+import { useAuthStore } from '../../api/auth';
+import { useForm, SubmitHandler } from 'react-hook-form';
 
+type Inputs = {
+  email: string,
+  password: string
+};
 export const Login = () => {
+
+  const { register, handleSubmit } = useForm<Inputs>();
+  const login = useAuthStore((state)=>state.login);
+
+  const onSubmit: SubmitHandler<Inputs> = async (data)=>{
+    console.log(data);
+    login(data);
+  };
+
+
   return (
     <div className="lg:w-3/5 w-full flex items-center justify-center text-center md:px-16 lg:pr-0 px-0 z-0">
       <div className="absolute lg:hidden z-10 inset-0 bg-login-background bg-no-repeat bg-cover bg-center items-center bg-[#66928c]">
@@ -16,11 +32,13 @@ export const Login = () => {
         <form
           action=""
           className="sm:w-2/3 w-full lg:h-2/3 px-4 lg:p-1 mx-auto"
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="relative my-6">
             <input
               type="email"
               className="w-full p-4 rounded bg-white outline outline-1 outline-[#dfe1e6] input"
+              {...register('email', { required:true })}
             />
             <label
               htmlFor="email"
@@ -33,6 +51,7 @@ export const Login = () => {
             <input
               type="password"
               className="w-full p-4 rounded bg-white outline outline-1 outline-[#dfe1e6] input"
+              {...register('password', { required:true })}
             />
             <label
               htmlFor="password"
@@ -53,9 +72,9 @@ export const Login = () => {
           </div>
           <div className="flex text-center justify-center gap-3 text-xs font-normal">
             <p className="text-white lg:text-black">¿No tenes una cuenta?</p>
-            <p className="text-primary hover:text-hover font-bold underline cursor-pointer">
+            <button type='submit' className="text-primary hover:text-hover font-bold underline cursor-pointer">
               <Link to="registerchoice">Registrate</Link>
-            </p>
+            </button>
           </div>
         </form>
       </div>
