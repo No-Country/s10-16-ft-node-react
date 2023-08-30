@@ -60,9 +60,12 @@ export const RegisterChoice = () => {
               Crea tu crowfunding o ayuda a otros.
             </p>
           </div>
-          <button className="col-span-2 p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base mt-10">
-            <Link to="../register">Continuar</Link>
-          </button>
+          <Link
+            to="../register"
+            className="col-span-2 p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base text-center mt-10"
+          >
+            <button>Continuar</button>
+          </Link>
         </form>
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
           <p className="text-white lg:text-black">¿Ya tenes una cuenta?</p>
