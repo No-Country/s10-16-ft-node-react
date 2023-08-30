@@ -3,10 +3,11 @@ import { phonePersonal, phoneTercero } from '../../assets';
 import { Link } from 'react-router-dom';
 
 export const RegisterChoice = () => {
-  const [isClicked, setIsClicked] = useState(false);
+  // const [isClicked, setIsClicked] = useState(false);
+  const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
 
-  const handleChoice = () => {
-    setIsClicked(!isClicked);
+  const handleChoice = (choice: string) => {
+    setSelectedChoice(choice === selectedChoice ? null : choice);
   };
 
   return (
@@ -27,11 +28,11 @@ export const RegisterChoice = () => {
         <form className="grid grid-cols-2 gap-9 px-4 lg:p-1 mt-14">
           <div
             className={`${
-              isClicked
+              selectedChoice === 'terceros'
                 ? 'bg-primary text-white cursor-pointer'
                 : 'hover:bg-primary hover:text-white cursor-pointer bg-white text-black'
             } transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6`}
-            onClick={handleChoice}
+            onClick={() => handleChoice('terceros')}
           >
             <img
               src={phoneTercero}
@@ -43,11 +44,11 @@ export const RegisterChoice = () => {
           </div>
           <div
             className={`${
-              isClicked
+              selectedChoice === 'personal'
                 ? 'bg-primary text-white cursor-pointer'
                 : 'hover:bg-primary hover:text-white cursor-pointer bg-white text-black'
             } transition-all duration-300 flex rounded-xl flex-col gap-4 outline outline-1 outline-[#dfe1e6] p-6`}
-            onClick={handleChoice}
+            onClick={() => handleChoice('personal')}
           >
             <img
               src={phonePersonal}
@@ -60,13 +61,13 @@ export const RegisterChoice = () => {
             </p>
           </div>
           <button className="col-span-2 p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base mt-10">
-            <Link to="register">Continuar</Link>
+            <Link to="../register">Continuar</Link>
           </button>
         </form>
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
           <p className="text-white lg:text-black">¿Ya tenes una cuenta?</p>
           <p className="text-primary hover:text-hover font-bold underline cursor-pointer">
-            Ingresá
+            <Link to="../login">Ingresá</Link>
           </p>
         </div>
       </div>
