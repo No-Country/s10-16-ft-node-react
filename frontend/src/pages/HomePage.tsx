@@ -1,5 +1,5 @@
-import {  home2, home3 } from '../assets';
-import { Hero, CardsHome, Step, ButtonSectionHome } from '../components/layout';
+import {  home2 } from '../assets';
+import { Hero, CardsHome, Step, ButtonSectionHome, Review } from '../components/layout';
 
 
 
@@ -54,19 +54,7 @@ export const HomePage = () => {
         </div>
       </div>
 
-      <div className='flex w-full py-20   justify-center items-center'>
-        <div className='flex flex-col md:flex-row w-[1039px] justify-center items-center  md: mx-6 lg:mx-0 gap-16 '>
-          <img className='w-[432px] h-[473px] object-cover rounded-xl ' src={home3} alt="" />
-          <div className='flex flex-col  items-start gap-6 '>
-   
-            <p>RallyFund y su genial comunidad han llevado mi proyecto innovador a alcanzar cientos de personas alrededor del mundo.</p>
-            <p>RallyFund y su genial comunidad han llevado mi proyecto innovador a alcanzar cientos de personas alrededor del mundo.</p>
-            <p>Regina Miles</p>
-            <p>Designer</p>
-    
-          </div>
-        </div>
-      </div>
+      <div><Review/></div>
 
 
  
