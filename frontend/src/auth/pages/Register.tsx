@@ -26,7 +26,7 @@ export const Register = () => {
       ...dataWithoutRepeatPassword,
       type: 'PERSONAL',
     };
-    const jsonData = JSON.stringify(updateData);
+
     console.log(updateData);
     
     singUp(updateData);

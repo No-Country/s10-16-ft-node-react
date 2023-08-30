@@ -1,6 +1,17 @@
+import { CheckBox } from '../../components';
 import { imgExample } from '../../assets';
 import { CaretLeft } from '@phosphor-icons/react';
+import { useState } from 'react';
 export const PopUpDonation = () => {
+  const [selectedValue, setSelectedValue] = useState<number | string>(0);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleCheckboxClick = (value: string | number) => {
+    setSelectedValue(value);
+  };
+
+  const cantidad = [50, 100, 200, 500, 750, 1000, 1500, 'otro'];
+
 
   return (
     <section className="w-[550px] h-[843px] m-auto">
@@ -14,53 +25,29 @@ export const PopUpDonation = () => {
           </div>
         </div>
         <div>
-          <div>$ amount</div>
+          <div className='text-primary mb-2'>$ {selectedValue}</div>
           <hr />
-          <div className='flex'>
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="50"/>
-              <label htmlFor="50">$ 50</label>
-            </div>
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="100" />
-              <label htmlFor="100">$ 100</label>
-            </div>
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="200" />
-              <label htmlFor="200">$ 200</label>
-            </div>  
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="500" />
-              <label htmlFor="500">$ 500</label>
-            </div>  
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="750" />
-              <label htmlFor="750">$ 750</label>
-            </div>  
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="1000" />
-              <label htmlFor="1000">$ 1000</label>
-            </div>  
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="1500" />
-              <label htmlFor="1500">$ 1500</label>
-            </div>  
-            <div>
-              <input className='text-primary' type="radio" name='amount' id="otro" />
-              <label htmlFor="otro">Otro</label>
-            </div>   
-          </div>      
+          <fieldset className="flex justify-between mt-4">
+            {cantidad.map((item, index) => (
+              <CheckBox
+                key={index}
+                value={item}
+                isSelected={selectedValue === item}
+                onClick={() => handleCheckboxClick(item)}
+              />
+            ))}
+          </fieldset>
         </div>
-        <div>
-          <div>
+        <div className='border-[1px] border-black rounded-lg w-[90%]'>
+          <div className='py-4 px-2 flex gap-2.5' >
             <input type="radio" name='payment' id="creditDebit" />
             <label htmlFor="creditDebit">Credit or debit card</label>
           </div>
-          <div>
+          <div className='border-t-[1px] border-black border-b-[1px] py-4 px-2 flex gap-2.5'>
             <input type="radio" name='payment' id="googlePay" />
             <label htmlFor="googlePay">Google pay</label>
           </div> 
-          <div>
+          <div className='py-4 px-2 flex gap-2.5' >
             <input type="radio" name='payment' id="applePay" />
             <label htmlFor="applePay">Apple Pay</label>
           </div>   
@@ -78,16 +65,16 @@ export const PopUpDonation = () => {
         <div>
           <p>Tu donacion</p>
           <div>
-            <div>
+            <div className='flex'>
               <p>Tu donacion</p>
               <p>$ 100</p>
             </div>
-            <div>
+            <div className='flex'>
               <p>Impuestos</p>
               <p>0%</p>
             </div>
             <hr />
-            <div>
+            <div className='flex'>
               <p>Total</p>
               <p>$ 100</p>
             </div>

@@ -30,7 +30,6 @@ export const useAuthStore = create<AuthStore>((set)=>({
     axios.post(`${API}/auth/register`, user)
       .then((res)=>{
         console.log(res.data);
-    
       })
       .catch((error)=>{
         console.error(error);
@@ -44,6 +43,9 @@ export const useAuthStore = create<AuthStore>((set)=>({
       })
       .then((res)=>{
         console.log(res.data);
+        console.log(res.status);
+        
+        
       })
       .catch((error)=>{
         console.error(error);
