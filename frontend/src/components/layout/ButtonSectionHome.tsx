@@ -1,4 +1,5 @@
-import { AiOutlineSearch } from 'react-icons/ai';
+import { MagnifyingGlass } from '@phosphor-icons/react';
+
 type ButtonHome = {
   title:string,
 };
@@ -19,7 +20,8 @@ export const ButtonSectionHome = () => {
     <div className='flex flex-col items-center gap-4 w-full md:w-[774px] mx-auto mb-10 px-4 md:px-0'>
       <form className='flex w-full md:w-[774px] h-16 rounded-full bg-[#F3F8F7] shadow px-4 py-2 md:py-5 justify-between items-center' action="">
         <input className='bg-[#F3F8F7] w-full text-sm md:text-base' type="text" placeholder='Buscar proyectos...' />
-        <AiOutlineSearch className='text-2xl text-[#9EA1B4]' />
+        <MagnifyingGlass  weight="thin" className='text-2xl text-[#9EA1B4]' />
+     
       </form>
       <div className='flex flex-wrap justify-between items-center gap-4'>
         {

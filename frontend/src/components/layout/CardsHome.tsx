@@ -1,4 +1,5 @@
 import { home1 } from '../../assets';
+import { BookmarkSimple } from '@phosphor-icons/react';
 
 type Cards  = {
   img: string,
@@ -71,7 +72,7 @@ export const CardsHome = () => {
                 </span>
               
                 <div className='flex items-start gap-4 w-[317px] '>
-                  <button className='flex w-11 px-4 py-3 justify-center items-center gap-2.5  rounded border-[1px] border-[#13ADB7]'>G</button>
+                  <button className='flex w-11 px-4 py-3 justify-center items-center gap-2.5  rounded border-[1px] border-[#13ADB7]'><BookmarkSimple className='text-primary text-xl' weight="thin" /></button>
                   <button className='flex px-20 py-3 justify-center gap-2.5 rounded border-[1px] border-[#13ADB7] font-Poppins text-sm font-normal text-primary '>Donar Ahora</button>
                 </div>
               </div>
