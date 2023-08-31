@@ -8,6 +8,7 @@ import { AccountsService } from './accounts/accounts.service';
 import { AuthModule } from './auth/auth.module';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { MailerService } from './services/mailer/mailer.service';
 @Module({
   imports: [AccountsModule, AuthModule, JwtModule],
   controllers: [AppController],
@@ -17,6 +18,7 @@ import { JwtModule } from '@nestjs/jwt';
     AppService,
     AccountsService,
     AuthService,
+    MailerService,
   ],
   exports: [PrismaService]
 })
