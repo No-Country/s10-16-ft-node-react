@@ -4,12 +4,14 @@ import { hash, compare } from 'bcrypt';
 import { PrismaService } from 'src/service.prisma';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { JwtService } from '@nestjs/jwt';
+import { MailerService } from 'src/services/mailer/mailer.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
+    private readonly mailerService: MailerService,
   ) { }
   async register(userObject: RegisterAuthDto) {
     const { password, email } = userObject;
@@ -19,6 +21,12 @@ export class AuthService {
     if (findUser) throw new HttpException('Email Already Registered', 409);
     const plainToHash = await hash(password, 10);
     userObject = { ...userObject, password: plainToHash, is_active: true };
+    const adaptedEmail = email.replace(/@/g, '%40')
+    await this.mailerService.sendMail(
+      email,
+      'Please verify your email',
+      `Your account has been created, please click on the link below to verify your account ${process.env.BACK_URL}/accounts/verify/${adaptedEmail}`,
+    );
     return this.prismaService.accounts.create({ data: userObject });
   }
 

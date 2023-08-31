@@ -49,4 +49,13 @@ export class AccountsService {
     });
     return deletedAccount;
   }
+  async verifyAccount(email: string) {
+    const updatedAccount = await this.prismaService.accounts.update({
+      where: { email },
+      data: {
+        verified: true,
+      }
+    });
+    return updatedAccount;
+  }
 }

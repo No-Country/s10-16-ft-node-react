@@ -1,15 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useBgStore } from '../../store/store';
+import { useEffect } from 'react';
 
 type Inputs = {
   email: string;
   password: string;
 };
+
 export const Login = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
-  const login = useAuthStore((state) => state.login);
+  const login = useAuthStore((state)=>state.login);
+  const token = useAuthStore((state)=>state.token);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
@@ -21,6 +25,12 @@ export const Login = () => {
   const handleBackgroundChange = (newClass: string) => {
     setBackgroundClass(newClass);
   };
+  
+  useEffect(()=>{
+    if (token !== '') {
+      navigate('/');
+    }
+  }, [token, navigate]);
 
   return (
     <div className="lg:w-3/5 w-full flex items-center justify-center text-center md:px-16 lg:pr-0 px-0 z-0">

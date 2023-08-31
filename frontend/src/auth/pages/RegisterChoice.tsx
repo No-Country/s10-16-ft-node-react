@@ -81,16 +81,15 @@ export const RegisterChoice = () => {
         </form>
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
           <p className="text-white lg:text-black">¿Ya tenes una cuenta?</p>
-          <p className="text-primary hover:text-hover font-bold underline cursor-pointer">
-            <Link
-              to="../login"
-              onClick={() => {
-                handleBackgroundChange('bg-login-background');
-              }}
-            >
-              Ingresá
-            </Link>
-          </p>
+          <Link
+            to={'../login'}
+            onClick={() => {
+              handleBackgroundChange('bg-login-background');
+            }}
+            className="text-primary hover:text-hover font-bold underline cursor-pointer
+          >
+            Ingresá
+          </Link>
         </div>
       </div>
     </div>
