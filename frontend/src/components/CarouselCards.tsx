@@ -6,8 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 // import required modules
-import { Navigation, FreeMode, Mousewheel, Keyboard } from 'swiper/modules';
-import { CardsHome } from './layout';
+import { Navigation, FreeMode } from 'swiper/modules';
 import { BookmarkSimple } from '@phosphor-icons/react';
 import { home1 } from '../assets';
 
@@ -65,12 +64,11 @@ export const CarouselCards = () => {
         spaceBetween={30}
         navigation={true}
         freeMode={true}
-        modules={[Navigation, FreeMode, Mousewheel, Keyboard]}
-        className="mySwiper"
+        modules={[Navigation, FreeMode]}
       >
-          {
-            cards.map((pass, index) =>(
-              <SwiperSlide key={index}>
+        {
+          cards.map((pass, index) =>(
+            <SwiperSlide key={index}>
               <div className='' >
                 <img className='w-[333px] h-[197px] object-cover shadow-md ' src={pass.img} alt="" /> 
                 <div className="w-[333px] px-2 pb-5 flex flex-col justify-center items-start gap-4">
@@ -92,8 +90,8 @@ export const CarouselCards = () => {
                   </div>
                 </div>
               </div>
-        </SwiperSlide>
-            ))     }
+            </SwiperSlide>
+          ))     }
       </Swiper>
     </div>
   );
