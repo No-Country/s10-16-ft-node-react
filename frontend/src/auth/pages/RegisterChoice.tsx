@@ -86,7 +86,7 @@ export const RegisterChoice = () => {
             onClick={() => {
               handleBackgroundChange('bg-login-background');
             }}
-            className="text-primary hover:text-hover font-bold underline cursor-pointer
+            className="text-primary hover:text-hover font-bold underline cursor-pointer"
           >
             Ingresá
           </Link>
