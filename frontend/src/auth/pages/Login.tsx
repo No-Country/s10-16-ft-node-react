@@ -1,20 +1,30 @@
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 type Inputs = {
   email: string,
   password: string
 };
 export const Login = () => {
-
+  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
   const login = useAuthStore((state)=>state.login);
+  const token = useAuthStore((state)=>state.token);
+  
 
   const onSubmit: SubmitHandler<Inputs> = async (data)=>{
     console.log(data);
     login(data);
   };
+
+  useEffect(()=>{
+    if (token !== '') {
+      navigate('/');
+    }
+  }, [token, navigate]);
 
 
   return (
@@ -73,7 +83,7 @@ export const Login = () => {
           <div className="flex text-center justify-center gap-3 text-xs font-normal">
             <p className="text-white lg:text-black">¿No tenes una cuenta?</p>
             <button type='submit' className="text-primary hover:text-hover font-bold underline cursor-pointer">
-              <Link to="registerchoice">Registrate</Link>
+              <Link to="/auth/registerchoice">Registrate</Link>
             </button>
           </div>
         </form>

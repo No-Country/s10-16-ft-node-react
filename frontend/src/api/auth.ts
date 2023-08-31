@@ -18,32 +18,38 @@ type LoginUser = {
 
 type AuthStore = {
   token: string
-  singUp: (user: User) => Promise<void>
-  login: (user: LoginUser) =>Promise<void>
+  singUp: (user: User) => void
+  login: (user: LoginUser) =>void
 };
 
 
 
 export const useAuthStore = create<AuthStore>((set)=>({
   token: '',
-  singUp: async (user)=>{
-    try {
-      const res = await axios.post(`${API}/auth/register`, user);
-      console.log(res.data);
-    } catch (error) {
-      console.error(error);    
-    }
+  singUp: (user) =>{
+    axios.post(`${API}/auth/register`, user)
+      .then((res)=>{
+        console.log(res.data);
+      })
+      .catch((error)=>{
+        console.error(error);
+      });
+  }, 
+  login: (user) =>{
+    axios.post(`${API}/auth/login`, user)
+      .then((res)=>{
+        set({ token: res.data.token });
+        return res;
+      })
+      .then((res)=>{
+        console.log(res.data);
+        console.log(res.status);
+        
+        
+      })
+      .catch((error)=>{
+        console.error(error);
+      });
   },
-  login: async (user) =>{
-    try {
-      const res = await axios.post(`${API}/auth/login`, user);
-      set({ token: res.data.token });
-      console.log(res.data);
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  
-  
 }));
 

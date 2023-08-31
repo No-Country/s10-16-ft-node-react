@@ -65,9 +65,9 @@ export const RegisterChoice = () => {
         </form>
         <div className="flex text-center justify-center mt-5 gap-3 text-xs font-normal">
           <p className="text-white lg:text-black">¿Ya tenes una cuenta?</p>
-          <p className="text-primary hover:text-hover font-bold underline cursor-pointer">
+          <Link to={'/auth/login'} className="text-primary hover:text-hover font-bold underline cursor-pointer">
             Ingresá
-          </p>
+          </Link>
         </div>
       </div>
     </div>

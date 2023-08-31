@@ -6,6 +6,7 @@ export default {
       colors: {
         primary: '#13ADB7',
         hover: '#108087',
+        disabled: '#9E9E9E',
         cards:'#6E6E6E'
       },
       backgroundColor: {
