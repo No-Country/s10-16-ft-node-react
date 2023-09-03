@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage, EmailPage, DetailPage } from './Pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
-import { Navbar, PopUpDonation } from './components/layout';
+import { Footer, Navbar, PopUpDonation } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
 
 function App() {
@@ -19,6 +19,7 @@ function App() {
         <Route path="/detail/:id" element={<DetailPage />} />
         <Route path="donation" element={<PopUpDonation />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
