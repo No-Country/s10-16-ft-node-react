@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HomePage, EmailPage, DetailPage } from './Pages';
+import { HomePage, EmailPage, DetailPage } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
 import { Footer, Navbar, PopUpDonation } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
