@@ -19,3 +19,17 @@
 .input.filled + .label {
   @apply text-xs transition-all duration-500 ease-out mt-2;
 }
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f7f7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #13adb7;
+  border-radius: 999px;
+}
