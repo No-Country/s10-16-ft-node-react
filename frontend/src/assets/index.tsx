@@ -12,6 +12,10 @@ import imgExample from './imgExample.png';
 import landing from './LandingPage1.png';
 import similar from './ProyectosSimilares.png';
 import user from './user1.jpg';
+import master from './master.png';
+import visa from './visa.png';
+import google from './google.png';
+import apple from './apple.png';
 
 
-export { phonePersonal, phoneTercero, hand,  paso1, paso2, paso3, saly, home1, home2, home3, imgExample, landing, similar, user };
+export { phonePersonal, phoneTercero, hand,  paso1, paso2, paso3, saly, home1, home2, home3, imgExample, landing, similar, user, master, visa, google, apple };
