@@ -1,4 +1,4 @@
-import { amex, discover, mastercard, visa } from '../assets';
+import { amex, discover, master, visa } from '../assets';
 import { countries } from '../data/countries';
 
 export const PaymentForm = () => {
@@ -25,7 +25,7 @@ export const PaymentForm = () => {
             <input type="text" aria-label='a' className="border-2 px-3 py-2.5 text-[0.8125rem] text-[#A5ACB8] font-semibold rounded-md w-full" placeholder='1234 1234 1234 1234' />
             <div className="absolute flex px-3 py-3 right-0 gap-2">
               <img src={visa} alt="" />
-              <img src={mastercard} alt="" />
+              <img src={master} alt="" />
               <img src={discover} alt="" />
               <img src={amex} alt="" />
             </div>
