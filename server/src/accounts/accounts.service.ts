@@ -9,6 +9,9 @@ export class AccountsService {
   async findOne(email: string) {
     const findAccount = await this.prismaService.accounts.findUnique({
       where: { email },
+      include: {
+        projects: true,
+      },
     });
     return findAccount;
   }
