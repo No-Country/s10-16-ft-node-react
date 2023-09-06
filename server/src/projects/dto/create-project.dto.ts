@@ -11,7 +11,7 @@ export class CreateProjectDto {
   @ApiProperty()
   @IsOptional()
   @IsString()
-  title?: string;
+  tittle?: string;
 
   @ApiProperty()
   @IsOptional()
@@ -28,7 +28,6 @@ export class CreateProjectDto {
   @IsNumber()
   goal_amount?: number;
 
-  @ApiProperty()
   @IsOptional()
   @IsBoolean()
   is_active?: boolean;
@@ -38,7 +37,6 @@ export class CreateProjectDto {
   @IsString()
   category_id?: string;
 
-  @ApiProperty()
   @IsOptional()
   @IsBoolean()
   goal_completed?: boolean;
@@ -48,7 +46,6 @@ export class CreateProjectDto {
   @IsDate()
   end_of_fundraiser?: Date;
 
-  @ApiProperty()
   @IsOptional()
   @IsNumber()
   total_funding?: number;
