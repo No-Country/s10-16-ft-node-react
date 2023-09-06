@@ -8,11 +8,11 @@ export const Navbar: FC = () => {
     setOpenMenu(!openMenu);
   };
   const navigation = [
-    { name: 'INICIO', to: '/' },
-    { name: 'PROYECTO', to: '/proyecto' },
-    { name: 'COMO FUNCIONA', to: '/como-funciona' },
-    { name: 'RESEÑAS', to: '/reseñas' },
-    { name: 'CONTACTO', to: '/contacto' },
+    { name: 'INICIO' },
+    { name: 'PROYECTO' },
+    { name: 'COMO FUNCIONA' },
+    { name: 'RESEÑAS' },
+    { name: 'CONTACTO' },
   ];
   return (
     <nav className="bg-[#F2F5F7] font-Ubuntu">
@@ -58,13 +58,12 @@ export const Navbar: FC = () => {
               <ul className="flex text-[#6E6E6E] gap-[1.5rem] text-xs font-normal justify-center w-full">
                 {navigation.map((nav) => (
                   <li key={nav.name}>
-                    <Link
-                      to={nav.to}
-                      className="py-[2px] hover:border-b-2 border-primary"
+                    <div
+                      className="py-[2px] hover:border-b-2 border-primary cursor-pointer"
                       aria-current="page"
                     >
                       {nav.name}
-                    </Link>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -80,34 +79,34 @@ export const Navbar: FC = () => {
           </div>
         </div>
       </div>
-      <div
-        className={`bg-[#F2F5F7] z-10 w-full md:flex transition-all duration-300 ease-in-out absolute ${
-          openMenu ? 'opacity-100 max-h-full' : 'opacity-0 max-h-0'
-        }`}
-        id="mobile-menu"
-      >
-        <ul className="space-y-1 px-2 pb-3 pt-2">
-          {navigation.map((nav) => (
-            <li key={nav.name}>
-              <Link
-                to={nav.to}
-                className="text-[#6E6E6E] block rounded-md px-3 py-2 text-base font-medium"
-                aria-current="page"
-              >
-                {nav.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="px-5 pb-3 pt-2">
-          <Link
-            to="/auth/login"
-            className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"
-          >
-            Iniciar sesión
-          </Link>
+      {openMenu && (
+        <div
+          className="bg-[#F2F5F7] z-10 w-full md:flex transition-all duration-300 ease-in-out absolute opacity-100 max-h-full"
+          id="mobile-menu"
+        >
+          <ul className="space-y-1 px-2 pb-3 pt-2">
+            {navigation.map((nav) => (
+              <li key={nav.name}>
+                <div
+                  className="text-[#6E6E6E] block rounded-md px-3 py-2 text-base font-medium"
+                  aria-current="page"
+                >
+                  {nav.name}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="px-5 pb-3 pt-2">
+            <Link
+              to="/auth/login"
+              className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"
+            >
+              Iniciar sesión
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
+
     </nav>
   );
 };

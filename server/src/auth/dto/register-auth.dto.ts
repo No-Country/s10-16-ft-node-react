@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsOptional, IsString, IsBoolean, IsInt, MinLength, IsEmail, MaxLength, IsEnum } from 'class-validator';
 import { LoginAuthDto } from './login-auth.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
 
 enum AccountType {
@@ -9,9 +10,11 @@ enum AccountType {
 }
 
 export class RegisterAuthDto extends PartialType(LoginAuthDto) {
+  @ApiProperty()
   @IsEmail()
   email: string;
 
+  @ApiProperty()
   @MinLength(6)
   @MaxLength(20)
   password: string;
@@ -20,6 +23,7 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsString()
   address?: string;
 
+  @ApiProperty()
   @IsEnum(AccountType)
   type: AccountType;
 
@@ -47,9 +51,11 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsInt()
   phone_number?: number;
 
+  @ApiProperty()
   @IsString()
   first_name: string;
 
+  @ApiProperty()
   @IsString()
   last_name: string;
 
@@ -60,4 +66,5 @@ export class RegisterAuthDto extends PartialType(LoginAuthDto) {
   @IsOptional()
   @IsBoolean()
   is_active: boolean;
+
 }
