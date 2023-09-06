@@ -3,24 +3,26 @@ import { HomePage, EmailPage, DetailPage, UserProfile } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
 import { Footer, Navbar, PopUpDonation } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
+import { InProcessPage } from './pages/InProcessPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar />
+      <Navbar /> 
       <Routes>
         <Route path="auth/" element={<LayoutAuth />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="registerChoice" element={<RegisterChoice />} />
         </Route>
+        <Route path="inProcess" element={<InProcessPage  />} />
         <Route path="sendEmail" element={<EmailPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/detail/:id" element={<DetailPage />} />
         <Route path="donation" element={<PopUpDonation />} />
         <Route path="user-profile" element={<UserProfile />} />
       </Routes>
-      <Footer />
+      <Footer /> 
     </BrowserRouter>
   );
 }
