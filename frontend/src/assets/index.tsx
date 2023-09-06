@@ -17,6 +17,8 @@ import master from './master.png';
 import visa from './visa.png';
 import google from './google.png';
 import apple from './apple.png';
+import discover from './Discover.png';
+import amex from './AMEX.png';
 
 
-export { phonePersonal, phoneTercero, hand,  paso1, paso2, paso3, saly, home1, home2, home3, imgExample, landing, similar, user, profile, master, visa, google, apple };
+export { phonePersonal, phoneTercero, hand,  paso1, paso2, paso3, saly, home1, home2, home3, imgExample, landing, similar, user, profile, master, visa, google, apple, discover, amex };
