@@ -15,11 +15,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
-  id   String @id @default(uuid())
-  name String
-}
-
 model accounts {
   id   String @id @default(uuid())
   email String @unique
@@ -38,4 +33,23 @@ model accounts {
   is_active Boolean?
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
+  projects projects[]
+}
+
+model projects {
+  id   String @id @default(uuid())
+  tittle String?
+  description String?
+  goal_currency String?
+  goal_amount Int?
+  is_active Boolean?
+  category_id String?
+  goal_completed Boolean?
+  end_of_fundraiser DateTime?
+  total_founding Int?
+  image String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  account_id String 
+  accounts accounts @relation(fields: [account_id], references: [id])
 }

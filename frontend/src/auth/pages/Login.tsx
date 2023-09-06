@@ -1,35 +1,42 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useBgStore } from '../../store/store';
 import { useEffect } from 'react';
 
 type Inputs = {
-  email: string,
-  password: string
+  email: string;
+  password: string;
 };
+
 export const Login = () => {
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
   const login = useAuthStore((state)=>state.login);
   const token = useAuthStore((state)=>state.token);
-  
 
-  const onSubmit: SubmitHandler<Inputs> = async (data)=>{
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     console.log(data);
     login(data);
   };
 
+  const { backgroundClass, setBackgroundClass } = useBgStore();
+
+  const handleBackgroundChange = (newClass: string) => {
+    setBackgroundClass(newClass);
+  };
+  
   useEffect(()=>{
     if (token !== '') {
       navigate('/');
     }
   }, [token, navigate]);
 
-
   return (
     <div className="lg:w-3/5 w-full flex items-center justify-center text-center md:px-16 lg:pr-0 px-0 z-0">
-      <div className="absolute lg:hidden z-10 inset-0 bg-login-background bg-no-repeat bg-cover bg-center items-center bg-[#66928c]">
+      <div
+        className={`absolute lg:hidden z-10 inset-0 ${backgroundClass} bg-no-repeat bg-cover bg-center items-center bg-[#66928c]`}
+      >
         <div className="absolute bg-black opacity-60 inset-0 z-0"></div>
       </div>
       <div className="w-full h-full lg:h-full py-6 z-20">
@@ -48,7 +55,7 @@ export const Login = () => {
             <input
               type="email"
               className="w-full p-4 rounded bg-white outline outline-1 outline-[#dfe1e6] input"
-              {...register('email', { required:true })}
+              {...register('email', { required: true })}
             />
             <label
               htmlFor="email"
@@ -61,7 +68,7 @@ export const Login = () => {
             <input
               type="password"
               className="w-full p-4 rounded bg-white outline outline-1 outline-[#dfe1e6] input"
-              {...register('password', { required:true })}
+              {...register('password', { required: true })}
             />
             <label
               htmlFor="password"
@@ -82,8 +89,14 @@ export const Login = () => {
           </div>
           <div className="flex text-center justify-center gap-3 text-xs font-normal">
             <p className="text-white lg:text-black">¿No tenes una cuenta?</p>
-            <button type='submit' className="text-primary hover:text-hover font-bold underline cursor-pointer">
-              <Link to="/auth/registerchoice">Registrate</Link>
+            <button
+              type="submit"
+              className="text-primary hover:text-hover font-bold underline cursor-pointer"
+              onClick={() => {
+                handleBackgroundChange('bg-registerchoice-background');
+              }}
+            >
+              <Link to="../registerchoice">Registrate</Link>
             </button>
           </div>
         </form>

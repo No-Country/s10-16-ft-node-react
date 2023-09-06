@@ -21,11 +21,14 @@ export default {
         Raleway: ['Raleway', 'sans-serif'],
       },
       backgroundImage: {
-        'login-background': "url('/src/Pages/Login/img/login-background.png')",
+        'login-background': "url('/src/assets/login-background.png')",
+        'register-background': "url('/src/assets/register-background.png')",
+        'registerchoice-background':
+          "url('/src/assets/registerchoice-background.png')",
       },
       screens: {
-        'xs': '428px'
-      }
+        xs: '428px',
+      },
     },
   },
   plugins: [],
