@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HomePage, EmailPage, DetailPage, UserProfile } from './pages';
+import { HomePage, EmailPage, DetailPage, UserProfile,  InProcessPage } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
 import { Footer, Navbar, PopUpDonation } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
-import { InProcessPage } from './pages/InProcessPage';
+
 
 function App() {
   return (
