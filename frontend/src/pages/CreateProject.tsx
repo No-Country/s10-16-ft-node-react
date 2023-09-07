@@ -1,17 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useAuthStore } from '../api/auth';
 
 interface CreateProjectProps {
-  projectTitle: string;
-  projectDescription: string;
-  projectCategory: string;
-  projectImage: FileList;
-  projectVideo: FileList;
-  projectGoal: number;
-  projectStartDate: Date;
-  projectEndDate: Date;
-  projectLocation: string;
-  projectCurrency: string;
+  tittle: string,
+  description: string,
+  goal_currency: string,
+  goal_amount: number | string,
+  category_id: string,
+  end_of_fundraiser: string,
+  image: string
 }
 
 export const CreateProject: React.FC = () => {
@@ -22,19 +20,55 @@ export const CreateProject: React.FC = () => {
     watch,
   } = useForm<CreateProjectProps>();
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [token, setToken] = useState<string>('');
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imgPreview, setImgPreview] = useState<string | null>(null);
+  
+  useEffect(()=>{
+    if (sessionStorage.getItem('token')) {
+      setToken(sessionStorage.getItem('token'));
+    } else {
+      setToken('');
+    }
+  }, []);
+
+  const create = useAuthStore((state)=>state.createProject);
+
+  const fileInputRef = useRef(null);
 
   const handleUploadButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    
+    fileInputRef.current.click();
+    
     // fileInputRef.current?.click(); // Optional chaining // Esto sirve para que no se caiga la app si no existe el elemento
   };
 
-  const projectCategory = watch('projectCategory');
+  const handleFileSelected = (event)=>{
+    const selectFile = event.target.files[0];
+    console.log(selectFile);
+    
+    if (selectFile) {
+      setSelectedFile(selectFile.name);
+    }
+
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      if (reader.result && typeof reader.result === 'string') {
+        setImgPreview(reader.result);
+      }
+    };
+    reader.readAsDataURL(selectFile);
+  };
+
+  const projectCategory = watch('category_id');
 
   const onSubmit = (data: CreateProjectProps) => {
-    console.log(data);
+    const newData : CreateProjectProps = {
+      ...data, goal_amount: parseFloat(data.goal_amount), end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
+    };
+    console.log(newData);
+    
+    create(newData, token);
   };
 
   return (
@@ -76,12 +110,12 @@ export const CreateProject: React.FC = () => {
             </label>
             <input
               type="text"
-              id="projectTitle"
-              {...register('projectTitle', { required: true })}
+              id="tittle"
+              {...register('tittle', { required: true })}
               className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
               placeholder="Colocale un nombre al proyecto"
             />
-            {errors.projectTitle && (
+            {errors.tittle && (
               <span className="text-red-500">Este campo es requerido</span>
             )}
           </div>
@@ -94,8 +128,8 @@ export const CreateProject: React.FC = () => {
               Selecciona la categoria
             </label>
             <select
-              id="projectCategory"
-              {...register('projectCategory', {
+              id="category_id"
+              {...register('category_id', {
                 required: true,
                 validate: (value) => value !== '',
               })}
@@ -106,20 +140,29 @@ export const CreateProject: React.FC = () => {
               <option value="" className="text-black">
                 Selecciona la categoria del proyecto
               </option>
-              <option value="1" className="text-black">
-                Categoria 1
+              <option value="Tecnología" className="text-black">
+                Tecnología
               </option>
-              <option value="2" className="text-black">
-                Categoria 2
+              <option value="Educación" className="text-black">
+                Educación
               </option>
-              <option value="3" className="text-black">
-                Categoria 3
+              <option value="Agricultura" className="text-black">
+                Agricultura
               </option>
-              <option value="4" className="text-black">
-                Categoria 4
+              <option value="Salud" className="text-black">
+                Salud
+              </option>
+              <option value="Movilidad" className="text-black">
+                Movilidad
+              </option>
+              <option value="Equidad" className="text-black">
+                Equidad
+              </option>
+              <option value="Medio ambiente" className="text-black">
+                Medio ambiente
               </option>
             </select>
-            {errors.projectCategory && (
+            {errors.category_id && (
               <span className="text-red-500">Este campo es requerido</span>
             )}
           </div>
@@ -134,12 +177,12 @@ export const CreateProject: React.FC = () => {
             Describe tu proyecto
           </label>
           <textarea
-            id="projectDescription"
-            {...register('projectDescription', { required: true })}
+            id="description"
+            {...register('description', { required: true })}
             className="w-full h-[145px] px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
             placeholder="Busca una descripcion indicada..."
           />
-          {errors.projectDescription && (
+          {errors.description && (
             <span className="text-red-500">Este campo es requerido</span>
           )}
         </div>
@@ -148,7 +191,7 @@ export const CreateProject: React.FC = () => {
         <div className="flex flex-wrap mb-4 border border-[#D7D7D7] rounded">
           {/* Subir foto */}
           <div className="flex-1 border-r text-center py-16">
-            <label htmlFor="projectImage">
+            {/* <label htmlFor="projectImage">
               <button
                 type="button"
                 onClick={handleUploadButtonClick}
@@ -159,15 +202,20 @@ export const CreateProject: React.FC = () => {
               <span className="block font-semibold text-[#BEBEBE] py-1">
                 1087 x 290px
               </span>
-            </label>
+            </label> */}
             <input
               type="file"
-              id="projectImage"
-              {...register('projectImage', { required: true })}
-              className="hidden"
+              id="image"
+              accept='image/*'
+              {...register('image', { required: true })}
+              className='bg-primary text-white font-Poppins'
               ref={fileInputRef}
+              onChange={handleFileSelected}
             />
-            {errors.projectImage && (
+            {selectedFile && (
+              <img src={imgPreview} alt='previsualizacion'/>
+            )}
+            {errors.image && (
               <span className="text-red-500">Este campo es requerido</span>
             )}
           </div>
@@ -189,32 +237,32 @@ export const CreateProject: React.FC = () => {
             <input
               type="file"
               id="projectVideo"
-              {...register('projectVideo', { required: true })}
+              /* {...register('projectVideo', { required: false })} */
               className="hidden"
               ref={fileInputRef}
             />
-            {errors.projectVideo && (
+            {/* {errors.projectVideo && (
               <span className="text-red-500">Este campo es requerido</span>
-            )}
+            )} */}
           </div>
         </div>
 
         {/* Cantidad deseada */}
         <div className="mb-4">
           <label
-            htmlFor="projectGoal"
+            htmlFor="goal_amount"
             className="block text-2xl font-bold mb-2 text-primary"
           >
             Cantidad deseada
           </label>
           <input
             type="number"
-            id="projectGoal"
-            {...register('projectGoal', { required: true })}
+            id="goal_amount"
+            {...register('goal_amount', { required: true })}
             placeholder="Ejemplo: 1000"
             className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
           />
-          {errors.projectGoal && (
+          {errors.goal_amount && (
             <span className="text-red-500">Este campo es requerido</span>
           )}
         </div>
@@ -232,29 +280,29 @@ export const CreateProject: React.FC = () => {
             <input
               type="date"
               id="projectStartDate"
-              {...register('projectStartDate', { required: true })}
-              className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8] uppercase"
+              /*               {...register('projectStartDate', { required: true })}
+ */              className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8] uppercase"
             />
-            {errors.projectStartDate && (
+            {/* {errors.projectStartDate && (
               <span className="text-red-500">Este campo es requerido</span>
-            )}
+            )} */}
           </div>
 
           {/* Fecha de finalizacion */}
           <div className="flex-1">
             <label
-              htmlFor="projectEndDate"
+              htmlFor="end_of_fundraiser"
               className="block text-2xl font-bold mb-2 text-primary"
             >
               Fecha de finalizacion
             </label>
             <input
               type="date"
-              id="projectEndDate"
-              {...register('projectEndDate', { required: true })}
+              id="end_of_fundraiser"
+              {...register('end_of_fundraiser', { required: true })}
               className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8] uppercase"
             />
-            {errors.projectEndDate && (
+            {errors.end_of_fundraiser && (
               <span className="text-red-500">Este campo es requerido</span>
             )}
           </div>
@@ -272,10 +320,10 @@ export const CreateProject: React.FC = () => {
             </label>
             <select
               id="projectLocation"
-              {...register('projectLocation', {
+              /* {...register('projectLocation', {
                 required: true,
                 validate: (value) => value !== '',
-              })}
+              })} */
               className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
             >
               <option value="">Elige tu pais</option>
@@ -284,9 +332,9 @@ export const CreateProject: React.FC = () => {
               <option value="3">Lugar 3</option>
               <option value="4">Lugar 4</option>
             </select>
-            {errors.projectLocation && (
+            {/* {errors.projectLocation && (
               <span className="text-red-500">Este campo es requerido</span>
-            )}
+            )} */}
           </div>
 
           {/* Tipo de moneda */}
@@ -298,20 +346,18 @@ export const CreateProject: React.FC = () => {
               Tipo de moneda
             </label>
             <select
-              id="projectCurrency"
-              {...register('projectCurrency', {
+              id="goal_currency"
+              {...register('goal_currency', {
                 required: true,
                 validate: (value) => value !== '',
               })}
               className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
             >
               <option value="">Elige el tipo de moneda</option>
-              <option value="1">Moneda 1</option>
-              <option value="2">Moneda 2</option>
-              <option value="3">Moneda 3</option>
-              <option value="4">Moneda 4</option>
+              <option value="$">ARS</option>
+              <option value="$">USD</option>
             </select>
-            {errors.projectCurrency && (
+            {errors.goal_currency && (
               <span className="text-red-500">Este campo es requerido</span>
             )}
           </div>
