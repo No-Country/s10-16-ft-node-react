@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HomePage, EmailPage, DetailPage, UserProfile, CreateProject, PaymentForm, InProcessPage } from './pages';
+import { HomePage, EmailPage, DetailPage, UserProfile, CreateProject, PaymentForm, InProcessPage, LoadingProjectPage,  ReadyProyectPage, ReadyDonationPage } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
 import { Footer, Navbar, PopUpDonation } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
@@ -8,13 +8,16 @@ import { Login, Register, RegisterChoice } from './auth';
 function App() {
   return (
     <BrowserRouter>
-      <Navbar /> 
+      <Navbar />  
       <Routes>
         <Route path="auth/" element={<LayoutAuth />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="registerChoice" element={<RegisterChoice />} />
         </Route>
+        <Route path="loadingProject" element={<LoadingProjectPage />} />
+        <Route path="readyDonation" element={<ReadyDonationPage/>} />
+        <Route path="ready" element={<ReadyProyectPage  />} />
         <Route path="inProcess" element={<InProcessPage  />} />
         <Route path="sendEmail" element={<EmailPage />} />
         <Route path="/" element={<HomePage />} />
@@ -24,7 +27,7 @@ function App() {
         <Route path="createProject" element={<CreateProject />} />
         <Route path="user-profile" element={<UserProfile />} />
       </Routes>
-      <Footer /> 
+      <Footer />  
     </BrowserRouter>
   );
 }
