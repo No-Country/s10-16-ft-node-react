@@ -1,23 +1,26 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
 
 interface CreateProjectProps {
   tittle: string,
   description: string,
   goal_currency: string,
-  goal_amount: number | string,
+  goal_amount: string,
   category_id: string,
   end_of_fundraiser: string,
-  image: string
+  /* image: string */
 }
 
 export const CreateProject: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
+    /* setValue, */
   } = useForm<CreateProjectProps>();
 
   const [token, setToken] = useState<string>('');
@@ -48,7 +51,8 @@ export const CreateProject: React.FC = () => {
     console.log(selectFile);
     
     if (selectFile) {
-      setSelectedFile(selectFile.name);
+      /*       setValue('image', selectFile.name);
+ */      setSelectedFile(selectFile.name);
     }
 
     const reader = new FileReader();
@@ -66,9 +70,11 @@ export const CreateProject: React.FC = () => {
     const newData : CreateProjectProps = {
       ...data, goal_amount: parseFloat(data.goal_amount), end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
     };
-    console.log(newData);
+    console.log(token);
     
+    console.log(newData);
     create(newData, token);
+    navigate('/loadingProject');
   };
 
   return (
@@ -207,17 +213,17 @@ export const CreateProject: React.FC = () => {
               type="file"
               id="image"
               accept='image/*'
-              {...register('image', { required: true })}
-              className='bg-primary text-white font-Poppins'
+              /*               {...register('image', { required: false })}
+ */              className='bg-primary text-white font-Poppins'
               ref={fileInputRef}
               onChange={handleFileSelected}
             />
             {selectedFile && (
               <img src={imgPreview} alt='previsualizacion'/>
             )}
-            {errors.image && (
+            {/* {errors.image && (
               <span className="text-red-500">Este campo es requerido</span>
-            )}
+            )} */}
           </div>
 
           {/* Subir video */}

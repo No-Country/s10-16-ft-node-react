@@ -20,10 +20,10 @@ type CreateProject = {
   tittle: string,
   description: string,
   goal_currency: string,
-  goal_amount: number | string,
+  goal_amount:string,
   category_id: string,
   end_of_fundraiser: string,
-  image: string
+  /* image: string */
 };
 
 
@@ -51,7 +51,7 @@ export const useAuthStore = create<AuthStore>((set)=>({
   login: (user) =>{
     axios.post(`${API}/auth/login`, user)
       .then((res)=>{
-        sessionStorage.setItem('token', JSON.stringify(res.data.token));
+        sessionStorage.setItem('token', res.data.token);
         console.log(res.data);
         set({ loginUser: res.data });
         return res;
