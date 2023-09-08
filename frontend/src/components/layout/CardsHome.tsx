@@ -53,7 +53,7 @@ export const CardsHome = () => {
 
   return (
   
-    <div className='flex justify-center  items-center  gap-4 '>
+    <div className='flex justify-center  items-center  gap-4 ' id='proyecto'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'   >
         {
           cards.map((pass, index) =>(

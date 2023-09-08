@@ -15,7 +15,7 @@ export const Step = () => {
   ]; 
   return (
   
-    <div className='   flex justify-around items-center flex-col md:flex-row '>
+    <div className='   flex justify-around items-center flex-col md:flex-row ' id='como-funciona'>
       {
         step.map((pass, index) =>(
           <div key={index} >
