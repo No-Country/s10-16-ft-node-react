@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserNavbar } from './UserNavbar';
-import { useAuthStore } from '../../api/auth';
+import { useAuthStore, User } from '../../api/auth';
 
 export const Navbar: FC = () => {
 
@@ -40,7 +40,7 @@ export const Navbar: FC = () => {
   );
 
   const showUserNavbar = (
-    <UserNavbar user={user} />
+    <UserNavbar user={user as User} />
   );
 
   return (

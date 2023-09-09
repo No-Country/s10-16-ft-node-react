@@ -2,17 +2,12 @@ import { profile } from '../../assets';
 import { Link } from 'react-router-dom';
 import { BsPersonCircle } from 'react-icons/bs';
 import { FC } from 'react';
+import { User } from '../../api/auth';
 
-type User = {
-  profile_picture: string | null;
-  first_name: string;
-  last_name: string;
-};
-
-interface UserNavbarProps {
+interface UserProfileProps {
   user: User | null;
 }
-export const UserNavbar: FC<UserNavbarProps> = ({ user }) => {
+export const UserNavbar: FC<UserProfileProps> = ({ user }) => {
 
   return (
     <div className="flex h-full gap-[1.125rem]">
