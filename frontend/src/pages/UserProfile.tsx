@@ -96,10 +96,10 @@ export const UserProfile = () => {
               <p className="font-bold my-3">Mi perfil</p>
               <div className="px-6 py-[1.125rem] flex justify-between w-full border border-[#E1E1E1] rounded">
                 <div className="flex items-center gap-5">
-                  {user?.profile_picture ? (
-                    <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
-                  ) : (
+                  {user?.first_name ? (
                     <BsPersonCircle className="w-12 h-12 text-gray-500 rounded-full" /> 
+                  ) : (
+                    <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
                   )}
                   <p className="flex flex-col"><span className="text-lg font-bold">{user?.first_name}{' '}{user?.last_name}</span><span className="text-sm">Buenos Aires, Argentina</span></p>
                 </div>

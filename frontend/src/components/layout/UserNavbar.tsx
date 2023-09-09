@@ -34,10 +34,10 @@ export const UserNavbar: FC<UserProfileProps> = ({ user }) => {
         <div className="w-2.5 h-2.5 bg-[#F53226] rounded-full border border-white absolute top-1.5 right-0.5"></div>
       </div>
       <div className="flex items-center gap-[1.125rem]">
-        {user?.profile_picture ? (
-          <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
-        ) : (
+        {user?.first_name ? (
           <BsPersonCircle className="w-8 h-8 text-gray-500 rounded-full p-px border-2" /> 
+        ) : (
+          <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
         )}
         <Link to="/user-profile" className="text-sm font-medium text-primary">{user?.first_name}{' '}{user?.last_name}</Link>
       </div>

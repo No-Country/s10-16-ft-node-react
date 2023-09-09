@@ -9,7 +9,6 @@ export type User = {
   first_name: string,
   last_name: string,
   type: string
-  profile_picture: string | null;
 };
 
 type LoginUser = {
