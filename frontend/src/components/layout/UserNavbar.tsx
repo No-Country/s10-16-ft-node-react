@@ -1,7 +1,9 @@
-import React from 'react'
 import { profile } from '../../assets';
+import { Link } from 'react-router-dom';
+import { BsPersonCircle } from 'react-icons/bs';
 
-export const UserNavbar = () => {
+export const UserNavbar = ({ user }) => {
+
   return (
     <div className="flex h-full gap-[1.125rem]">
       <div className="flex items-center relative">
@@ -27,8 +29,12 @@ export const UserNavbar = () => {
         <div className="w-2.5 h-2.5 bg-[#F53226] rounded-full border border-white absolute top-1.5 right-0.5"></div>
       </div>
       <div className="flex items-center gap-[1.125rem]">
-        <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
-        <span className="text-sm font-medium text-primary">Carolina Estevez</span>
+        {user?.profile_picture ? (
+          <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
+        ) : (
+          <BsPersonCircle className="w-8 h-8 text-gray-500 rounded-full p-px border-2" /> 
+        )}
+        <Link to="/user-profile" className="text-sm font-medium text-primary">{user?.first_name}{' '}{user?.last_name}</Link>
       </div>
     </div>
   );

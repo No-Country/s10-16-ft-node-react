@@ -2,9 +2,12 @@ import { FC, useState } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserNavbar } from './UserNavbar';
+import { useAuthStore } from '../../api/auth';
 
 export const Navbar: FC = () => {
-  const [user, setUser] = useState(true);
+
+  const { user } = useAuthStore();
+ 
   const [openMenu, setOpenMenu] = useState(false);
 
   const location = useLocation();
@@ -37,7 +40,7 @@ export const Navbar: FC = () => {
   );
 
   const showUserNavbar = (
-    <UserNavbar />
+    <UserNavbar user={user} />
   );
 
   return (
