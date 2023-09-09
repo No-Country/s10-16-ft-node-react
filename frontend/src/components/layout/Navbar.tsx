@@ -123,19 +123,33 @@ export const Navbar: FC = () => {
           className="bg-[#F2F5F7] z-10 w-full md:flex transition-all duration-300 ease-in-out absolute opacity-100 max-h-full"
           id="mobile-menu"
         >
-          <ul className="space-y-1 px-2 pb-3 pt-2">
+          <ul className="bg-[#F2F5F7] space-y-1 px-2 pb-3 pt-2">
             {navigation.map((nav) => (
               <li key={nav.name}>
-                <div
-                  className="text-[#6E6E6E] block rounded-md px-3 py-2 text-base font-medium"
-                  aria-current="page"
-                >
-                  {nav.name}
-                </div>
+                {location.pathname !== '/' ? (
+                  <a
+                    onClick={redirectToHome}
+                    className="py-[2px] hover:border-b-2 border-primary cursor-pointer"
+                  >
+                    {nav.name}
+                  </a>
+                ) : (
+                  <ScrollLink
+                    to={nav.path}
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="text-[#6E6E6E] block rounded-md px-3 py-2 text-base font-medium"
+                    aria-current="page"
+                  >
+                    {nav.name}
+                  </ScrollLink>
+                )}
               </li>
             ))}
           </ul>
-          <div className="px-5 pb-3 pt-2">
+          <div className="bg-[#F2F5F7] px-5 pb-3 pt-2">
             <Link
               to="/auth/login"
               className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"
