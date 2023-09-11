@@ -1,19 +1,22 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import { CreateProject } from '../api/auth';
+
 
 interface CreateProjectProps {
-  tittle: string,
-  description: string,
-  goal_currency: string,
-  goal_amount: string,
-  category_id: string,
-  end_of_fundraiser: string,
-  /* image: string */
+  createProject:(data:CreateProject, token:string)=>void;
+  // tittle: string,
+  // description: string,
+  // goal_currency: string,
+  // goal_amount: string,
+  // category_id: string,
+  // end_of_fundraiser: string,
+  // /* image: string */
 }
 
-export const CreateProject: React.FC = () => {
+export const CreateProject = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -23,7 +26,7 @@ export const CreateProject: React.FC = () => {
     /* setValue, */
   } = useForm<CreateProjectProps>();
 
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useState<string | null>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   
@@ -37,17 +40,16 @@ export const CreateProject: React.FC = () => {
 
   const create = useAuthStore((state)=>state.createProject);
 
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadButtonClick = () => {
-    
-    fileInputRef.current.click();
-    
-    // fileInputRef.current?.click(); // Optional chaining // Esto sirve para que no se caiga la app si no existe el elemento
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
-  const handleFileSelected = (event)=>{
-    const selectFile = event.target.files[0];
+  const handleFileSelected = (event:ChangeEvent<HTMLInputElement>)=>{
+    const selectFile = event.target.files ? [0] : null;
     console.log(selectFile);
     
     if (selectFile) {

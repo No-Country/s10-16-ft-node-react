@@ -15,7 +15,7 @@ type LoginUser = {
   password: string
 };
 
-type CreateProject = {
+export type CreateProject = {
   tittle: string,
   description: string,
   goal_currency: string,
