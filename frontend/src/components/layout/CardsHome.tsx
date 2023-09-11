@@ -214,15 +214,15 @@ export const CardsHome = () => {
             />
             <div className="w-[333px] px-2 pb-5 flex flex-col justify-center items-start gap-4">
               <div className="w-[317px] h-[30px]  text-black font-Poppins text-xl font-normal mt-4">
-                {pass.title}{' '}
+                {pass.title}
               </div>
               <div className="w-[317px] h-[84px] text-cards font-Poppins text-sm font-normal ">
-                {pass.text}{' '}
+                {pass.text}
               </div>
               <div className="w-[317px]  text-cards font-Poppins text-xs font-normal ">
-                {pass.subtitle}{' '}
+                {pass.subtitle}
               </div>
-
+              
               <span className="text-sm font-Poppins w-[317px]">
                 <span className="text-cards ">Recolectado </span>
                 <span className="text-primary ">$10.848 </span>

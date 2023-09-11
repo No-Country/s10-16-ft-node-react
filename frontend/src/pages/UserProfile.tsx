@@ -1,12 +1,24 @@
 import { useState } from 'react';
 import { profile } from '../assets';
+import { useAuthStore } from '../api/auth';
+import { useNavigate } from 'react-router-dom';
+import { BsPersonCircle } from 'react-icons/bs';
 
 export const UserProfile = () => {
+
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+  const navigate = useNavigate();
 
   const [activeI, setActiveI] = useState<number | null>(null);
 
   const handleItemClick = (i: number | null) => {
     setActiveI(i);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
   };
 
   return (
@@ -47,7 +59,7 @@ export const UserProfile = () => {
             Configuración
           </li>
         </ul>
-        <button className={`flex items-center cursor-pointer py-2 px-[0.875rem] gap-4 hover:bg-[#E2EAF5] hover:font-bold hover:text-primary text-[0.875rem] rounded ${activeI === 0 ? 'text-primary bg-[#E2EAF5] font-bold' : 'text-black'}`}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none" className="fill-current group-hover:text-primary">
+        <button onClick={handleLogout} className={`flex items-center cursor-pointer py-2 px-[0.875rem] gap-4 hover:bg-[#E2EAF5] hover:font-bold hover:text-primary text-[0.875rem] rounded ${activeI === 0 ? 'text-primary bg-[#E2EAF5] font-bold' : 'text-black'}`}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none" className="fill-current group-hover:text-primary">
           <path d="M4.7619 8.11905H16.3333L14.8571 6.64286L16.1905 5.2619L20 9.07143L16.1905 12.881L14.8571 11.5L16.3333 10.0238H4.7619V8.11905ZM11.4286 6.21429V2.40476H1.90476V15.7381H11.4286V11.9286H13.3333V15.7381C13.3333 16.2619 13.1468 16.7103 12.7738 17.0833C12.4008 17.4563 11.9524 17.6429 11.4286 17.6429H1.90476C1.38095 17.6429 0.93254 17.4563 0.559524 17.0833C0.186508 16.7103 0 16.2619 0 15.7381V2.40476C0 1.88095 0.186508 1.43254 0.559524 1.05952C0.93254 0.686508 1.38095 0.5 1.90476 0.5H11.4286C11.9524 0.5 12.4008 0.686508 12.7738 1.05952C13.1468 1.43254 13.3333 1.88095 13.3333 2.40476V6.21429H11.4286Z"/>
         </svg>Cerrar sesión</button>
       </div>
@@ -84,8 +96,12 @@ export const UserProfile = () => {
               <p className="font-bold my-3">Mi perfil</p>
               <div className="px-6 py-[1.125rem] flex justify-between w-full border border-[#E1E1E1] rounded">
                 <div className="flex items-center gap-5">
-                  <img src={profile} alt="" />
-                  <p className="flex flex-col"><span className="text-lg font-bold">Juana Estevez</span><span className="text-sm">Buenos Aires, Argentina</span></p>
+                  {user?.first_name ? (
+                    <BsPersonCircle className="w-12 h-12 text-gray-500 rounded-full" /> 
+                  ) : (
+                    <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
+                  )}
+                  <p className="flex flex-col"><span className="text-lg font-bold">{user?.first_name}{' '}{user?.last_name}</span><span className="text-sm">Buenos Aires, Argentina</span></p>
                 </div>
                 <div>
                   <button className="border border-primary text-primary text-sm font-bold px-3 py-1 rounded-md flex items-center gap-2">Editar <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
@@ -103,11 +119,11 @@ export const UserProfile = () => {
               </div>
               <div className="flex gap-52 items-center">
                 <div className="w-36">
-                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Nombre</span><span>Juana</span></p>
-                  <p className="text-sm flex flex-col gap-3"><span className="text-primary">Correr electrónico</span><span>Juana@hotmail.com</span></p>
+                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Nombre</span><span>{user?.first_name}</span></p>
+                  <p className="text-sm flex flex-col gap-3"><span className="text-primary">Correr electrónico</span><span>{user?.email}</span></p>
                 </div>
                 <div>
-                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Apellido</span><span>Estevez</span></p>
+                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Apellido</span><span>{user?.last_name}</span></p>
                   <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Contraseña</span><span>**********</span></p>
                   <p className="text-sm flex flex-col gap-3 font-Raleway"><span className="text-primary">Celular</span><span>+54 911 5487 5026</span></p>
                 </div>
