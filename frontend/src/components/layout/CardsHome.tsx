@@ -3,6 +3,7 @@ import { BookmarkSimple } from '@phosphor-icons/react';
 import { useAuthStore } from '../../api/auth';
 import { useEffect } from 'react';
 import { useFilterStore, useSearchStore } from '../../store/store';
+import { home1 } from '../../assets';
         
 type Cards = {
   img: string;
@@ -180,9 +181,9 @@ export const CardsHome = () => {
   const filteredCards = cards.filter((card) =>
     filter
       ? removeAccentsAndLowerCase(card.subtitle).includes(
-          removeAccentsAndLowerCase(filter)
-        )
-      : true
+        removeAccentsAndLowerCase(filter),
+      )
+      : true,
   );
 
   const searchFilteredCards = filteredCards.filter((card) => {
@@ -234,7 +235,7 @@ export const CardsHome = () => {
                 </div>
               </div>
             </div>
-        ))}
+          ))}
         
         <hr/>
         
