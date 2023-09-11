@@ -3,7 +3,7 @@ import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useBgStore } from '../../store/store';
 import { useNavigate } from 'react-router-dom'; 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 type Inputs = {
   email: string;
