@@ -7,9 +7,10 @@ interface CreateProjectProps {
   tittle: string,
   description: string,
   goal_currency: string,
-  goal_amount: string,
+  goal_amount: number,
   category_id: string,
   end_of_fundraiser: string,
+  /* image: string */
 }
 
 export const CreateProject: React.FC = () => {
@@ -19,16 +20,17 @@ export const CreateProject: React.FC = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    /* setValue, */
   } = useForm<CreateProjectProps>();
 
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useState<string | null>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   
   useEffect(()=>{
-    const storedToken = sessionStorage.getItem('token');
-    if (storedToken !== null) {
-      setToken(storedToken);
+    if (sessionStorage.getItem('token')) {
+      setToken(sessionStorage.getItem('token'));
     } else {
       setToken('');
     }
@@ -39,23 +41,28 @@ export const CreateProject: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadButtonClick = () => {
+    
     fileInputRef.current?.click();
+    
   };
 
   const handleFileSelected = (event: React.ChangeEvent<HTMLInputElement>)=>{
-    const selectFile = event.target.files?.[0];
+    const selectFile = event.target.files && event.target.files[0];
     console.log(selectFile);
-    
     if (selectFile) {
-      // setValue('image', selectFile.name);
-      setSelectedFile(selectFile);
+      if (selectFile.name) {
+        setSelectedFileName(selectFile.name);
+      }
+    }
+    
 
-      const reader = new FileReader();
-      reader.onload = ()=>{
-        if (reader.result && typeof reader.result === 'string') {
-          setImgPreview(reader.result);
-        }
-      };
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      if (reader.result && typeof reader.result === 'string') {
+        setImgPreview(reader.result);
+      }
+    };
+    if (selectFile) {
       reader.readAsDataURL(selectFile);
     }
   };
@@ -65,13 +72,13 @@ export const CreateProject: React.FC = () => {
   const onSubmit = (data: CreateProjectProps) => {
     const newData : CreateProjectProps = {
       ...data, 
-      goal_amount: parseFloat(data.goal_amount).toString(), 
+      goal_amount: parseFloat(data.goal_amount), 
       end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
     };
+
     console.log(token);
     
     console.log(newData);
-
     create(newData, token);
     navigate('/loadingProject');
   };
