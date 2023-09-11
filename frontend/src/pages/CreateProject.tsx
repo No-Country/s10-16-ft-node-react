@@ -41,20 +41,18 @@ export const CreateProject: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadButtonClick = () => {
-    
     fileInputRef.current?.click();
-    
   };
 
   const handleFileSelected = (event: React.ChangeEvent<HTMLInputElement>)=>{
     const selectFile = event.target.files && event.target.files[0];
     console.log(selectFile);
     if (selectFile) {
+      setSelectedFile(selectFile);
       if (selectFile.name) {
-        setSelectedFileName(selectFile.name);
+        setSelectedFileName(selectedFileName);
       }
     }
-    
 
     const reader = new FileReader();
     reader.onload = ()=>{
