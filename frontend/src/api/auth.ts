@@ -2,8 +2,7 @@ import axios from 'axios';
 import { create } from 'zustand';
 
 const API = 'https://rallyfund.onrender.com';
-
-type User = {
+export type User = {
   email: string,
   password: string
   first_name: string,
@@ -26,19 +25,31 @@ type CreateProject = {
   /* image: string */
 };
 
+type Projects = {
+  id: string,
+  tittle: string,
+  description: string,
+  goal_amount: number,
+  category_id: string
+};
 
 type AuthStore = {
   project: boolean
   loginUser: User | null
+  user: User | null; 
   singUp: (user: User) => void
   login: (user: LoginUser) =>void
   createProject: (data: CreateProject, token: string)=> void
+  logout: () => void
+  projects: Projects[]
+  findProjects: ()=>void
 };
 
 
 export const useAuthStore = create<AuthStore>((set)=>({
   project: false,
   loginUser: null,
+  user: null,
   singUp: (user) =>{
     axios.post(`${API}/auth/register`, user)
       .then((res)=>{
@@ -72,6 +83,18 @@ export const useAuthStore = create<AuthStore>((set)=>({
       });
   },
 
+  logout: () => {
+    set((state) => ({
+      ...state,
+      token: '',
+      user: null,
+    }));
+
+  },
+  projects: [],
+  findProjects: ()=>{
+    axios.get(`${API}/projects`)
+      .then((res)=> set({ projects: res.data }),
+      );
+  },
 }));
-
-

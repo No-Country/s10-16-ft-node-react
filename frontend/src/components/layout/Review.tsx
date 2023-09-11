@@ -3,7 +3,7 @@ import { Star } from '@phosphor-icons/react';
 
 export const Review = () => {
   return (
-    <div className='flex w-full py-20   justify-center items-center'>
+    <div className='flex w-full py-20   justify-center items-center' id='reseñas'>
       <div className='flex  md: flex-col lg:flex-row w-[1039px] justify-center items-center  md: mx-6 lg:mx-0 gap-16 '>
         <img className='w-[432px] h-[473px] object-cover rounded-xl  shadow-lg' src={home3} alt="" />
         

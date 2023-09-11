@@ -1,22 +1,51 @@
 import { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link as ScrollLink } from 'react-scroll';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { UserNavbar } from './UserNavbar';
+import { useAuthStore, User } from '../../api/auth';
 
 export const Navbar: FC = () => {
+
+  const { user } = useAuthStore();
+ 
   const [openMenu, setOpenMenu] = useState(false);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const redirectToHome = () => {
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
+  };
 
   const toggleMenu = () => {
     setOpenMenu(!openMenu);
   };
   const navigation = [
-    { name: 'INICIO' },
-    { name: 'PROYECTO' },
-    { name: 'COMO FUNCIONA' },
-    { name: 'RESEÑAS' },
-    { name: 'CONTACTO' },
+    { name: 'INICIO', path: 'inicio' },
+    { name: 'PROYECTO', path: 'proyecto' },
+    { name: 'COMO FUNCIONA', path: 'como-funciona' },
+    { name: 'RESEÑAS', path: 'reseñas' },
+    { name: 'CONTACTO', path: 'contacto' },
   ];
+
+  const showLoginAndRegister = (
+    <Link
+      to="/auth/login"
+      className="relative xs:block hidden rounded-lg bg-primary py-[0.4rem] px-3 hover:ring-2 hover:ring-primary text-white text-[18px] font-normal leading-5"
+    >
+      Iniciar sesión
+    </Link>
+  );
+
+  const showUserNavbar = (
+    <UserNavbar user={user as User} />
+  );
+
   return (
-    <nav className="bg-[#F2F5F7] font-Ubuntu">
-      <div className="mx-auto max-w-[65rem] px-2 sm:px-6 lg:px-8">
+    <nav className="bg-[#F2F5F7] font-Ubuntu fixed z-10 w-full top-0">
+      <div className="mx-auto max-w-[80rem] px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-[3.75rem] items-center justify-between">
           <div className="absolute inset-y-0 xs:left-0 right-0 flex items-center md:hidden">
             <button
@@ -53,29 +82,39 @@ export const Navbar: FC = () => {
               </svg>
             </button>
           </div>
-          <div className="absolute flex flex-1 w-full items-center justify-center sm:items-stretch sm:justify-start">
+          <Link to="/" className="text-4xl font-medium text-primary">RallyFound</Link>
+          <div className="flex flex-1 w-full items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 md:block w-full">
               <ul className="flex text-[#6E6E6E] gap-[1.5rem] text-xs font-normal justify-center w-full">
                 {navigation.map((nav) => (
                   <li key={nav.name}>
-                    <div
-                      className="py-[2px] hover:border-b-2 border-primary cursor-pointer"
-                      aria-current="page"
-                    >
-                      {nav.name}
-                    </div>
+                    {location.pathname !== '/' ? (
+                      <a
+                        onClick={redirectToHome}
+                        className="py-[2px] hover:border-b-2 border-primary cursor-pointer"
+                      >
+                        {nav.name}
+                      </a>
+                    ) : (
+                      <ScrollLink
+                        to={nav.path}
+                        spy={true}
+                        smooth={true}
+                        offset={-70}
+                        duration={500}
+                        className="py-[2px] hover:border-b-2 border-primary cursor-pointer"
+                        aria-current="page"
+                      >
+                        {nav.name}
+                      </ScrollLink>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
-          <div className="w-full justify-end flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <Link
-              to="/auth/login"
-              className="relative xs:block hidden rounded-lg bg-primary py-[0.4rem] px-3 hover:ring-2 hover:ring-primary text-white text-[18px] font-normal leading-5"
-            >
-              Iniciar sesión
-            </Link>
+          <div className="flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            {user ? showUserNavbar : showLoginAndRegister}
           </div>
         </div>
       </div>
@@ -84,19 +123,33 @@ export const Navbar: FC = () => {
           className="bg-[#F2F5F7] z-10 w-full md:flex transition-all duration-300 ease-in-out absolute opacity-100 max-h-full"
           id="mobile-menu"
         >
-          <ul className="space-y-1 px-2 pb-3 pt-2">
+          <ul className="bg-[#F2F5F7] space-y-1 px-2 pb-3 pt-2">
             {navigation.map((nav) => (
               <li key={nav.name}>
-                <div
-                  className="text-[#6E6E6E] block rounded-md px-3 py-2 text-base font-medium"
-                  aria-current="page"
-                >
-                  {nav.name}
-                </div>
+                {location.pathname !== '/' ? (
+                  <a
+                    onClick={redirectToHome}
+                    className="py-[2px] hover:border-b-2 border-primary cursor-pointer"
+                  >
+                    {nav.name}
+                  </a>
+                ) : (
+                  <ScrollLink
+                    to={nav.path}
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="text-[#6E6E6E] block rounded-md px-3 py-2 text-base font-medium"
+                    aria-current="page"
+                  >
+                    {nav.name}
+                  </ScrollLink>
+                )}
               </li>
             ))}
           </ul>
-          <div className="px-5 pb-3 pt-2">
+          <div className="bg-[#F2F5F7] px-5 pb-3 pt-2">
             <Link
               to="/auth/login"
               className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"

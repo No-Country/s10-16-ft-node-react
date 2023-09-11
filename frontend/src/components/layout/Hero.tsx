@@ -5,7 +5,7 @@ import { home1 } from '../../assets';
 export const Hero = () => {
 
   return (
-    <div className='relative  '>
+    <div className='relative  ' id='inicio'>
       <img className='w-full object-cover' src={home1} alt="" />
       <div className='absolute inset-0 flex flex-col justify-center items-center mt-8 md:mt-0 '>
         <h1 className=' text-primary  font-Raleway text-3xl md:text-5xl lg:text-6xl font-bold text-center'>RallyFound</h1>
