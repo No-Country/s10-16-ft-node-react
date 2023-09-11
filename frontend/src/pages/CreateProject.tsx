@@ -1,38 +1,34 @@
 import { useForm } from 'react-hook-form';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
-import { CreateProject } from '../api/auth';
-
 
 interface CreateProjectProps {
-  createProject:(data:CreateProject, token:string)=>void;
-  // tittle: string,
-  // description: string,
-  // goal_currency: string,
-  // goal_amount: string,
-  // category_id: string,
-  // end_of_fundraiser: string,
-  // /* image: string */
+  tittle: string,
+  description: string,
+  goal_currency: string,
+  goal_amount: string,
+  category_id: string,
+  end_of_fundraiser: string,
 }
 
-export const CreateProject = () => {
+export const CreateProject: React.FC = () => {
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
     watch,
-    /* setValue, */
   } = useForm<CreateProjectProps>();
 
-  const [token, setToken] = useState<string | null>('');
+  const [token, setToken] = useState<string>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
   
   useEffect(()=>{
-    if (sessionStorage.getItem('token')) {
-      setToken(sessionStorage.getItem('token'));
+    const storedToken = sessionStorage.getItem('token');
+    if (storedToken !== null) {
+      setToken(storedToken);
     } else {
       setToken('');
     }
@@ -43,38 +39,39 @@ export const CreateProject = () => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    fileInputRef.current?.click();
   };
 
-  const handleFileSelected = (event:ChangeEvent<HTMLInputElement>)=>{
-    const selectFile = event.target.files ? [0] : null;
+  const handleFileSelected = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const selectFile = event.target.files?.[0];
     console.log(selectFile);
     
     if (selectFile) {
-      /*       setValue('image', selectFile.name);
- */      setSelectedFile(selectFile.name);
-    }
+      // setValue('image', selectFile.name);
+      setSelectedFile(selectFile);
 
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      if (reader.result && typeof reader.result === 'string') {
-        setImgPreview(reader.result);
-      }
-    };
-    reader.readAsDataURL(selectFile);
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        if (reader.result && typeof reader.result === 'string') {
+          setImgPreview(reader.result);
+        }
+      };
+      reader.readAsDataURL(selectFile);
+    }
   };
 
   const projectCategory = watch('category_id');
 
   const onSubmit = (data: CreateProjectProps) => {
     const newData : CreateProjectProps = {
-      ...data, goal_amount: parseFloat(data.goal_amount), end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
+      ...data, 
+      goal_amount: parseFloat(data.goal_amount).toString(), 
+      end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
     };
     console.log(token);
     
     console.log(newData);
+
     create(newData, token);
     navigate('/loadingProject');
   };
@@ -220,9 +217,14 @@ export const CreateProject = () => {
               ref={fileInputRef}
               onChange={handleFileSelected}
             />
-            {selectedFile && (
-              <img src={imgPreview} alt='previsualizacion'/>
+            {selectedFile && imgPreview && (
+              <img
+                src={imgPreview}
+                alt="preview"
+                className="mx-auto w-1/2 h-1/2"
+              />
             )}
+
             {/* {errors.image && (
               <span className="text-red-500">Este campo es requerido</span>
             )} */}
