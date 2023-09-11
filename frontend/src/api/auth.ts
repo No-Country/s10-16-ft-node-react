@@ -15,17 +15,17 @@ type LoginUser = {
   password: string
 };
 
-type CreateProject = {
+export type CreateProject = {
   tittle: string,
   description: string,
   goal_currency: string,
-  goal_amount:string,
+  goal_amount: number,
   category_id: string,
   end_of_fundraiser: string,
   /* image: string */
 };
 
-type Projects = {
+export type Projects = {
   id: string,
   tittle: string,
   description: string,
@@ -39,12 +39,12 @@ type AuthStore = {
   user: User | null; 
   singUp: (user: User) => void
   login: (user: LoginUser) =>void
-  createProject: (data: CreateProject, token: string)=> void
+  createProject: (data: CreateProject, token: string | null)=> void
   logout: () => void
   projects: Projects[] | null
   findProjects: ()=>void
-  detailProject: Projects[]
-  findProject: (id: string | undefined, token: string)=>void
+  detailProject: Projects | null
+  findProject: (id: string | undefined, token: string | null)=>void
 };
 
 
@@ -99,7 +99,7 @@ export const useAuthStore = create<AuthStore>((set)=>({
       .then((res)=> set({ projects: res.data }),
       );
   },
-  detailProject: [],
+  detailProject: null,
   findProject: (id, token)=>{
     axios.get(`${API}/projects/${id}`, {
       headers: {

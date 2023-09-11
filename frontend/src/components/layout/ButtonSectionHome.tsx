@@ -18,7 +18,7 @@ export const ButtonSectionHome = () => {
   ];
 
   const setFilter = useFilterStore(
-    (FilterStoreState) => FilterStoreState.setFilter
+    (FilterStoreState) => FilterStoreState.setFilter,
   );
 
   const filter = useFilterStore((FilterStoreState) => FilterStoreState.filter);
@@ -32,7 +32,7 @@ export const ButtonSectionHome = () => {
   };
 
   const setSearch = useSearchStore(
-    (SearchStoreState) => SearchStoreState.setSearch
+    (SearchStoreState) => SearchStoreState.setSearch,
   );
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ interface CreateProjectProps {
   tittle: string,
   description: string,
   goal_currency: string,
-  goal_amount: string,
+  goal_amount: number,
   category_id: string,
   end_of_fundraiser: string,
   /* image: string */
@@ -23,9 +23,10 @@ export const CreateProject: React.FC = () => {
     /* setValue, */
   } = useForm<CreateProjectProps>();
 
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useState<string | null>('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imgPreview, setImgPreview] = useState<string | null>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
   
   useEffect(()=>{
     if (sessionStorage.getItem('token')) {
@@ -37,22 +38,20 @@ export const CreateProject: React.FC = () => {
 
   const create = useAuthStore((state)=>state.createProject);
 
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleUploadButtonClick = () => {
-    
-    fileInputRef.current.click();
-    
-    // fileInputRef.current?.click(); // Optional chaining // Esto sirve para que no se caiga la app si no existe el elemento
+    fileInputRef.current?.click();
   };
 
-  const handleFileSelected = (event)=>{
-    const selectFile = event.target.files[0];
+  const handleFileSelected = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const selectFile = event.target.files && event.target.files[0];
     console.log(selectFile);
-    
     if (selectFile) {
-      /*       setValue('image', selectFile.name);
- */      setSelectedFile(selectFile.name);
+      setSelectedFile(selectFile);
+      if (selectFile.name) {
+        setSelectedFileName(selectedFileName);
+      }
     }
 
     const reader = new FileReader();
@@ -61,15 +60,20 @@ export const CreateProject: React.FC = () => {
         setImgPreview(reader.result);
       }
     };
-    reader.readAsDataURL(selectFile);
+    if (selectFile) {
+      reader.readAsDataURL(selectFile);
+    }
   };
 
   const projectCategory = watch('category_id');
 
   const onSubmit = (data: CreateProjectProps) => {
     const newData : CreateProjectProps = {
-      ...data, goal_amount: parseFloat(data.goal_amount), end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
+      ...data, 
+      goal_amount: Number(data.goal_amount), 
+      end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
     };
+
     console.log(token);
     
     console.log(newData);
@@ -218,9 +222,14 @@ export const CreateProject: React.FC = () => {
               ref={fileInputRef}
               onChange={handleFileSelected}
             />
-            {selectedFile && (
-              <img src={imgPreview} alt='previsualizacion'/>
+            {selectedFile && imgPreview && (
+              <img
+                src={imgPreview}
+                alt="preview"
+                className="mx-auto w-1/2 h-1/2"
+              />
             )}
+
             {/* {errors.image && (
               <span className="text-red-500">Este campo es requerido</span>
             )} */}
