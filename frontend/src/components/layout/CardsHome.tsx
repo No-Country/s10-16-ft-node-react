@@ -211,13 +211,11 @@ export const CardsHome = () => {
     findProjects();   
   }, [findProjects]);
 
-
-
   return (
     <div className='flex justify-center  items-center  gap-4 ' id='proyecto'>
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {
-          projects.map((project, index) =>(
+          projects?.map((project, index) =>(
             <div className='' key={index} >
               <img className='w-[333px] h-[197px] object-cover shadow-md ' src="" alt="" /> 
               <div className="w-[333px] px-2 pb-5 flex flex-col justify-center items-start gap-4">
