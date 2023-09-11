@@ -1,18 +1,9 @@
 import { Link } from 'react-router-dom';
-import { home1 } from '../../assets';
 import { BookmarkSimple } from '@phosphor-icons/react';
 import { useAuthStore } from '../../api/auth';
 import { useEffect } from 'react';
 
-type Cards  = {
-  img: string,
-  title: string,
-  text: string
-  subtitle: string
-};
-
 export const CardsHome = () => {
-
   const projects = useAuthStore((state)=>state.projects);
   const findProjects = useAuthStore((state)=>state.findProjects);
   

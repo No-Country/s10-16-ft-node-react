@@ -41,8 +41,10 @@ type AuthStore = {
   login: (user: LoginUser) =>void
   createProject: (data: CreateProject, token: string)=> void
   logout: () => void
-  projects: Projects[]
+  projects: Projects[] | null
   findProjects: ()=>void
+  detailProject: Projects[]
+  findProject: (id: string | undefined, token: string)=>void
 };
 
 
@@ -96,5 +98,14 @@ export const useAuthStore = create<AuthStore>((set)=>({
     axios.get(`${API}/projects`)
       .then((res)=> set({ projects: res.data }),
       );
+  },
+  detailProject: [],
+  findProject: (id, token)=>{
+    axios.get(`${API}/projects/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res)=>set({ detailProject: res.data }));
   },
 }));
