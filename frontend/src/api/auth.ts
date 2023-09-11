@@ -43,7 +43,7 @@ type AuthStore = {
   logout: () => void
   projects: Projects[] | null
   findProjects: ()=>void
-  detailProject: Projects[]
+  detailProject: Projects | null
   findProject: (id: string | undefined, token: string | null)=>void
 };
 
@@ -99,7 +99,7 @@ export const useAuthStore = create<AuthStore>((set)=>({
       .then((res)=> set({ projects: res.data }),
       );
   },
-  detailProject: [],
+  detailProject: null,
   findProject: (id, token)=>{
     axios.get(`${API}/projects/${id}`, {
       headers: {

@@ -6,7 +6,7 @@ import { useAuthStore } from '../api/auth';
 
 export const DetailPage = () => {
   const [selectedValue, setSelectedValue] = useState<number | string>(0);
-  const [token, setToken] = useState<string>('');
+  const [token, setToken] = useState<string | null>('');
 
   const [isChecked, setIsChecked] = useState(false);
   const { id } = useParams();
@@ -18,7 +18,6 @@ export const DetailPage = () => {
   
   useEffect(()=>{
     if (sessionStorage.getItem('token')) {
-      
       setToken(sessionStorage.getItem('token'));
       if (token) {
         findProject(id, token);
