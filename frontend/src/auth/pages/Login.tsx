@@ -1,8 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../api/auth';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useBgStore } from '../../store/store';
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import { useState } from 'react';
 
 type Inputs = {
   email: string;
@@ -10,27 +11,27 @@ type Inputs = {
 };
 
 export const Login = () => {
-  const navigate = useNavigate();
   const { register, handleSubmit } = useForm<Inputs>();
   const login = useAuthStore((state)=>state.login);
-  const token = useAuthStore((state)=>state.token);
+  const loginUser = useAuthStore((state)=>state.loginUser);
+  const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-    login(data);
+  const onSubmit: SubmitHandler<Inputs> =   (data) => {
+    login(data); 
+    setLoading(true);
   };
 
+  if (loginUser) {
+    navigate('/');
+  }
+  
   const { backgroundClass, setBackgroundClass } = useBgStore();
 
   const handleBackgroundChange = (newClass: string) => {
     setBackgroundClass(newClass);
   };
-  
-  useEffect(()=>{
-    if (token !== '') {
-      navigate('/');
-    }
-  }, [token, navigate]);
+
 
   return (
     <div className="lg:w-3/5 w-full flex items-center justify-center text-center md:px-16 lg:pr-0 px-0 z-0">
@@ -53,6 +54,7 @@ export const Login = () => {
         >
           <div className="relative my-6">
             <input
+              id='email'
               type="email"
               className="w-full p-4 rounded bg-white outline outline-1 outline-[#dfe1e6] input"
               {...register('email', { required: true })}
@@ -66,6 +68,7 @@ export const Login = () => {
           </div>
           <div className="relative my-2">
             <input
+              id='password'
               type="password"
               className="w-full p-4 rounded bg-white outline outline-1 outline-[#dfe1e6] input"
               {...register('password', { required: true })}
@@ -83,7 +86,7 @@ export const Login = () => {
             </p>
           </div>
           <div className="my-6">
-            <button className="w-full p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base">
+            <button disabled={loading} className="w-full p-4 rounded-lg bg-primary hover:bg-hover transition-all duration-300 text-white font-bold text-base">
               Iniciar sesión
             </button>
           </div>

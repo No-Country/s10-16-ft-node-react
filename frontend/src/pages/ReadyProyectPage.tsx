@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { ready } from '../assets';
 
  
@@ -15,7 +16,7 @@ export const ReadyProyectPage = () => {
         <p className="text-center text-xl font-Poppins">Tu proyecto esta publicado, esperamos recaudes lo esperado.</p> 
       </div>
 
-      <button className='w-[564px] h-[50px] max-w-[80%] m-auto sm:  bg-primary rounded-lg text-white font-bold font-Raleway text-m hover:bg-hover'>Finalizar</button>
+      <Link to={'/'} className='w-[564px] h-[50px] max-w-[80%] m-auto flex items-center justify-center sm:bg-primary rounded-lg text-white font-bold font-Raleway text-m hover:bg-hover'>Finalizar</Link>
     </div>
   );
 };
