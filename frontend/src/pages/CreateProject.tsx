@@ -70,7 +70,7 @@ export const CreateProject: React.FC = () => {
   const onSubmit = (data: CreateProjectProps) => {
     const newData : CreateProjectProps = {
       ...data, 
-      goal_amount: parseFloat(data.goal_amount), 
+      goal_amount: Number(data.goal_amount), 
       end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
     };
 
