@@ -6,7 +6,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 
 export const UserProfile = () => {
 
-  const user = useAuthStore((state) => state.user);
+  const user = useAuthStore((state) => state.loginUser);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export const UserProfile = () => {
   };
 
   return (
-    <section className="p-6 bg-[#F2F5F7] flex gap-6">
+    <section className="p-6 bg-[#F2F5F7] flex gap-6 my-12">
       <div className="bg-white flex flex-col justify-between w-[11rem] h-screen py-6 px-3">
         <ul className="w-full flex flex-col gap-2">
           <li onClick={() => handleItemClick(0)} className={`flex items-center cursor-pointer py-2 px-[0.875rem] gap-4 hover:bg-[#E2EAF5] hover:font-bold hover:text-primary text-[0.875rem] rounded ${activeI === 0 ? 'text-primary bg-[#E2EAF5] font-bold' : 'text-black'}`}>
@@ -101,7 +101,7 @@ export const UserProfile = () => {
                   ) : (
                     <img src={profile} alt="" className="w-10 h-10 border-2 rounded-full p-px" />
                   )}
-                  <p className="flex flex-col"><span className="text-lg font-bold">{user?.first_name}{' '}{user?.last_name}</span><span className="text-sm">Buenos Aires, Argentina</span></p>
+                  <p className="flex flex-col"><span className="text-lg font-bold">{user?.first_name}{' '}{user?.last_name}</span><span className="text-sm">{user?.country}</span></p>
                 </div>
                 <div>
                   <button className="border border-primary text-primary text-sm font-bold px-3 py-1 rounded-md flex items-center gap-2">Editar <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
@@ -125,7 +125,7 @@ export const UserProfile = () => {
                 <div>
                   <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Apellido</span><span>{user?.last_name}</span></p>
                   <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Contraseña</span><span>**********</span></p>
-                  <p className="text-sm flex flex-col gap-3 font-Raleway"><span className="text-primary">Celular</span><span>+54 911 5487 5026</span></p>
+                  <p className="text-sm flex flex-col gap-3 font-Raleway"><span className="text-primary">Celular</span><span>{user?.phone_number}</span></p>
                 </div>
               </div>
             </div>
@@ -138,11 +138,11 @@ export const UserProfile = () => {
               </div>
               <div className="flex gap-52 items-center">
                 <div className="w-36">
-                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">País</span><span>Argentina</span></p>
-                  <p className="text-sm flex flex-col gap-3"><span className="text-primary">Código postal</span><span>B1228</span></p>
+                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">País</span><span>{user?.country}</span></p>
+                  <p className="text-sm flex flex-col gap-3"><span className="text-primary">Código postal</span><span>{user?.postal_code}</span></p>
                 </div>
                 <div>
-                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Provincia</span><span>Captial federal</span></p>
+                  <p className="text-sm flex flex-col gap-3 mb-12"><span className="text-primary">Provincia</span><span>{user?.address}</span></p>
                 </div>
               </div>
             </div>

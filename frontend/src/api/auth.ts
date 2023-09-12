@@ -3,11 +3,23 @@ import { create } from 'zustand';
 
 const API = 'https://rallyfund.onrender.com';
 export type User = {
+  id: string,
   email: string,
-  password: string
+  password: string,
   first_name: string,
   last_name: string,
-  type: string
+  type: string,
+  address: string | null,
+  postal_code: string | null,
+  phone_number: string | null,
+  profile_picture: string | null,
+  country: string | null,
+  document_type: string | null,
+  document_number: string | null,
+  verified: boolean | null,
+  is_active: boolean | null,
+  createdAt: string,
+  updatedAt: string,
 };
 
 type LoginUser = {
@@ -54,8 +66,10 @@ export const useAuthStore = create<AuthStore>((set)=>({
   user: null,
   singUp: (user) =>{
     axios.post(`${API}/auth/register`, user)
-      .then((res)=>{
+      .then((res) => {
+        const userData = res.data.user;
         console.log(res.data);
+        set({ loginUser: userData });
       })
       .catch((error)=>{
         console.error(error);
@@ -63,10 +77,11 @@ export const useAuthStore = create<AuthStore>((set)=>({
   }, 
   login: (user) =>{
     axios.post(`${API}/auth/login`, user)
-      .then((res)=>{
+      .then((res) => {
+        const userData = res.data.user;
         sessionStorage.setItem('token', res.data.token);
         console.log(res.data);
-        set({ loginUser: res.data });
+        set({ loginUser: userData });
         return res;
       })
       .catch((error)=>{
@@ -86,13 +101,10 @@ export const useAuthStore = create<AuthStore>((set)=>({
   },
 
   logout: () => {
-    set((state) => ({
-      ...state,
-      token: '',
-      user: null,
-    }));
-
+    sessionStorage.removeItem('token');
+    set({ loginUser: null });
   },
+
   projects: [],
   findProjects: ()=>{
     axios.get(`${API}/projects`)
