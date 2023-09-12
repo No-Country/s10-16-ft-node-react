@@ -16,6 +16,7 @@ package-lock
 package-lock.json
 *package-lock.json
 frontend/package-lock.json
+.env
 
 # Editor directories and files
 .vscode/*
