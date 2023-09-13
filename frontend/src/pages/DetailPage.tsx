@@ -1,30 +1,58 @@
 import { useEffect, useState } from 'react';
-import { landing, similar } from '../assets';
+import { similar } from '../assets';
 import { CheckBox, CarouselCards } from '../components';
 import { useParams } from 'react-router';
-import { useAuthStore } from '../api/auth';
+// import { useAuthStore } from '../api/auth';
+import db from '../api/firebaseConfig';
+import { getDoc, doc } from 'firebase/firestore';
+
+type Project = {
+  id: string;
+  category_id: string;
+  tittle: string;
+  description: string;
+  goal_amount: number;
+  goal_acumulated: number;
+  goal_currency: string;
+  end_of_fundraiser: string;
+  image: string;
+};
 
 export const DetailPage = () => {
+  const [project, setProject] = useState<Project>();
   const [selectedValue, setSelectedValue] = useState<number | string>(0);
-  const [token, setToken] = useState<string | null>('');
+  // const [token, setToken] = useState<string | null>('');
 
   const [isChecked, setIsChecked] = useState(false);
   const { id } = useParams();
 
-  const detailProject = useAuthStore((state)=>state.detailProject);
-  const findProject = useAuthStore((state)=>state.findProject);
+  // const detailProject = useAuthStore((state)=>state.detailProject);
+  // const findProject = useAuthStore((state)=>state.findProject);
 
-  console.log(detailProject);
+  // console.log(detailProject);
   
-  useEffect(()=>{
-    if (sessionStorage.getItem('token')) {
-      setToken(sessionStorage.getItem('token'));
-      if (token) {
-        findProject(id, token);
+  useEffect(() => {
+    const getProject = async () => {
+      if (id) { // Verifica si id está definido
+        const projectDoc = doc(db, 'projects', id);
+        const projectSnapshot = await getDoc(projectDoc);
+        const data = { ...projectSnapshot.data(), id: projectSnapshot.id } as Project;
+        setProject(data);
+        window.scrollTo(0, 0);
       }
+    };
+
+    getProject();
+  }, [id]);
+  // useEffect(()=>{
+  //   if (sessionStorage.getItem('token')) {
+  //     setToken(sessionStorage.getItem('token'));
+  //     if (token) {
+  //       findProject(id, token);
+  //     }
       
-    }
-  }, [id, findProject, token]);
+  //   }
+  // }, [id, findProject, token]);
 
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -64,25 +92,27 @@ export const DetailPage = () => {
     </div>
   );
 
-  if (!detailProject) {
+  if (!project) {
     return (
-      <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-[#13ADB7] border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
-        <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+      <div className="w-full h-screen grid place-items-center">
+        <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-[#13ADB7] border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
+          <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+        </div>
       </div>
     );
   } else {
     return (
-      <section className="mx-auto mt-16 max-w-[65rem] px-2 sm:px-6 lg:px-8">
+      <section className="mx-auto my-20 max-w-[65rem] px-2 sm:px-6 lg:px-8">
         <div className="flex justify-between my-10" >
           <div className="font-Poppins w-[37.375rem]">
             <h1 className="font-semibold text-2xl mb-2">
-              {detailProject.tittle}
+              {project?.tittle}
             </h1>
             <p className="text-xs font-normal mb-6">
-              <span className="text-primary">$ 18.000</span> de{' '}
-              <span className="text-primary">$ {detailProject.goal_amount}</span> recaudados
+              <span className="text-primary">$ {project?.goal_acumulated}</span> de{' '}
+              <span className="text-primary">$ {project?.goal_amount}</span> recaudados
             </p>
-            <img src={landing} alt="" />
+            <img src={project?.image} alt="" />
             {/* <p className="text-sm text-[#6E6E6E] my-8">
                 Proyecto E-learning con el que esperamos desarrollar un aplicacion
                 educativa para los niños y jovenes de ecuador, asi tengan acceso a
@@ -93,7 +123,7 @@ export const DetailPage = () => {
             </p> */}
             <h2 className="text-base mb-2">Esto queremos hacer</h2>
             <p className="text-sm text-[#6E6E6E]">
-              {detailProject.description}
+              {project?.description}
             </p>
             {/* <ul className="text-sm text-[#6E6E6E] list-disc my-6 pl-4">
               <li>Asi tengan acceso a la informacion.</li>
