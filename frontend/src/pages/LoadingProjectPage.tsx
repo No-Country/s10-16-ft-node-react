@@ -1,14 +1,16 @@
-import { useAuthStore } from '../api/auth';
+// import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+
 export const LoadingProjectPage = () => {
   const navigate = useNavigate();
-  const isProject = useAuthStore((state)=> state.project);
+  // const isProject = useAuthStore((state)=> state.project);
 
-  console.log(isProject);
-  
-  if (isProject) {
+  // console.log(isProject);
+
+
+  setTimeout(() => {
     navigate('/ready');
-  }
+  }, 5000); // 5 segundos
 
   return (
     <div className="flex flex-col w-screen h-screen">
