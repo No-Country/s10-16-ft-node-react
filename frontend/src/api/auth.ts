@@ -9,17 +9,6 @@ export type User = {
   first_name: string,
   last_name: string,
   type: string,
-  address: string | null,
-  postal_code: string | null,
-  phone_number: string | null,
-  profile_picture: string | null,
-  country: string | null,
-  document_type: string | null,
-  document_number: string | null,
-  verified: boolean | null,
-  is_active: boolean | null,
-  createdAt: string,
-  updatedAt: string,
 };
 
 type LoginUser = {
@@ -48,15 +37,15 @@ export type Projects = {
 type AuthStore = {
   project: boolean
   loginUser: User | null
-  user: User | null; 
+  user: User | null;
   singUp: (user: User) => void
-  login: (user: LoginUser) =>void
-  createProject: (data: CreateProject, token: string | null)=> void
+  login: (user: LoginUser) => void
+  createProject: (data: CreateProject, token: string | null) => void
   logout: () => void
   projects: Projects[] | null
-  findProjects: ()=>void
+  findProjects: () => void
   detailProject: Projects | null
-  findProject: (id: string | undefined, token: string | null)=>void
+  findProject: (id: string | undefined, token: string | null) => void
 };
 
 
@@ -66,10 +55,8 @@ export const useAuthStore = create<AuthStore>((set)=>({
   user: null,
   singUp: (user) =>{
     axios.post(`${API}/auth/register`, user)
-      .then((res) => {
-        const userData = res.data.user;
+      .then((res)=>{
         console.log(res.data);
-        set({ loginUser: userData });
       })
       .catch((error)=>{
         console.error(error);
@@ -77,11 +64,10 @@ export const useAuthStore = create<AuthStore>((set)=>({
   }, 
   login: (user) =>{
     axios.post(`${API}/auth/login`, user)
-      .then((res) => {
-        const userData = res.data.user;
+      .then((res)=>{
         sessionStorage.setItem('token', res.data.token);
         console.log(res.data);
-        set({ loginUser: userData });
+        set({ loginUser: res.data, user: res.data.user });
         return res;
       })
       .catch((error)=>{

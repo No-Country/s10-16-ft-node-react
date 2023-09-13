@@ -5,7 +5,7 @@ import { FC } from 'react';
 import { User } from '../../api/auth';
 
 interface UserProfileProps {
-  user: User | null;
+  user: User | null
 }
 export const UserNavbar: FC<UserProfileProps> = ({ user }) => {
 

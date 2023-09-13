@@ -2,16 +2,16 @@ import { FC, useState } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserNavbar } from './UserNavbar';
-import { useAuthStore, User } from '../../api/auth';
+import { useAuthStore } from '../../api/auth';
 
 export const Navbar: FC = () => {
 
-  const { loginUser } = useAuthStore();
+  const { loginUser, user } = useAuthStore();
  
   const [openMenu, setOpenMenu] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   const redirectToHome = () => {
     if (location.pathname !== '/') {
@@ -40,7 +40,7 @@ export const Navbar: FC = () => {
   );
 
   const showUserNavbar = (
-    <UserNavbar user={loginUser as User} />
+    <UserNavbar user={user} />
   );
 
   return (
