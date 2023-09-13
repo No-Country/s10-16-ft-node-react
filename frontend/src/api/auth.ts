@@ -36,15 +36,15 @@ export type Projects = {
 type AuthStore = {
   project: boolean
   loginUser: User | null
-  user: User | null; 
+  user: User | null;
   singUp: (user: User) => void
-  login: (user: LoginUser) =>void
-  createProject: (data: CreateProject, token: string | null)=> void
+  login: (user: LoginUser) => void
+  createProject: (data: CreateProject, token: string | null) => void
   logout: () => void
   projects: Projects[] | null
-  findProjects: ()=>void
+  findProjects: () => void
   detailProject: Projects | null
-  findProject: (id: string | undefined, token: string | null)=>void
+  findProject: (id: string | undefined, token: string | null) => void
 };
 
 
@@ -66,7 +66,7 @@ export const useAuthStore = create<AuthStore>((set)=>({
       .then((res)=>{
         sessionStorage.setItem('token', res.data.token);
         console.log(res.data);
-        set({ loginUser: res.data });
+        set({ loginUser: res.data, user: res.data.user });
         return res;
       })
       .catch((error)=>{
@@ -86,13 +86,10 @@ export const useAuthStore = create<AuthStore>((set)=>({
   },
 
   logout: () => {
-    set((state) => ({
-      ...state,
-      token: '',
-      user: null,
-    }));
-
+    sessionStorage.removeItem('token');
+    set({ loginUser: null });
   },
+
   projects: [],
   findProjects: ()=>{
     axios.get(`${API}/projects`)

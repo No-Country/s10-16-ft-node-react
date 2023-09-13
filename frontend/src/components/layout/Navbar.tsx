@@ -2,16 +2,16 @@ import { FC, useState } from 'react';
 import { Link as ScrollLink } from 'react-scroll';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserNavbar } from './UserNavbar';
-import { useAuthStore, User } from '../../api/auth';
+import { useAuthStore } from '../../api/auth';
 
 export const Navbar: FC = () => {
 
-  const { user } = useAuthStore();
+  const { loginUser, user } = useAuthStore();
  
   const [openMenu, setOpenMenu] = useState(false);
 
   const location = useLocation();
-  const navigate = useNavigate();
+  const navigate = useNavigate();  
 
   const redirectToHome = () => {
     if (location.pathname !== '/') {
@@ -33,14 +33,14 @@ export const Navbar: FC = () => {
   const showLoginAndRegister = (
     <Link
       to="/auth/login"
-      className="relative xs:block hidden rounded-lg bg-primary py-[0.4rem] px-3 hover:ring-2 hover:ring-primary text-white text-[18px] font-normal leading-5"
+      className="relative rounded-lg bg-primary py-[0.4rem] px-3 hover:ring-2 hover:ring-primary text-white text-[18px] font-normal leading-5"
     >
       Iniciar sesión
     </Link>
   );
 
   const showUserNavbar = (
-    <UserNavbar user={user as User} />
+    <UserNavbar user={user} />
   );
 
   return (
@@ -82,7 +82,7 @@ export const Navbar: FC = () => {
               </svg>
             </button>
           </div>
-          <Link to="/" className="text-4xl font-medium text-primary">RallyFound</Link>
+          <Link to="/" className="text-4xl font-medium text-primary md:block hidden">RallyFound</Link>
           <div className="flex flex-1 w-full items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 md:block w-full">
               <ul className="flex text-[#6E6E6E] gap-[1.5rem] text-xs font-normal justify-center w-full">
@@ -114,7 +114,9 @@ export const Navbar: FC = () => {
             </div>
           </div>
           <div className="flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            {user ? showUserNavbar : showLoginAndRegister}
+            <div className="xs:block hidden">
+              {loginUser ? showUserNavbar : showLoginAndRegister}
+            </div>
           </div>
         </div>
       </div>
@@ -150,12 +152,7 @@ export const Navbar: FC = () => {
             ))}
           </ul>
           <div className="bg-[#F2F5F7] px-5 pb-3 pt-2">
-            <Link
-              to="/auth/login"
-              className="relative xs:hidden rounded-lg bg-primary py-[0.4rem] px-3 text-white text-[18px] font-normal leading-5"
-            >
-              Iniciar sesión
-            </Link>
+            {loginUser ? showUserNavbar : showLoginAndRegister}
           </div>
         </div>
       )}

@@ -3,7 +3,7 @@ import { FaTwitter, FaFacebookSquare, FaInstagram } from 'react-icons/fa';
 export const Footer = () => {
   return (
     <footer className="bg-primary font-Ubuntu">
-      <div className="mx-auto max-w-[65rem] px-2 sm:px-6 lg:px-8 flex justify-between py-16 text-white">
+      <div className="mx-auto max-w-[65rem] px-2 sm:px-6 lg:px-8 flex justify-between flex-wrap py-16 text-white">
         <div>
           <h3 className="text-[1.575rem] font-bold">Ponte en contacto</h3>
           <p className="text-[0.91875rem] text-[#8EC2F2] w-[13rem] my-[1.64063rem]">the quick fox jumps over the 
