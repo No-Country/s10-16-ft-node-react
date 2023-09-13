@@ -82,7 +82,7 @@ export const Navbar: FC = () => {
               </svg>
             </button>
           </div>
-          <Link to="/" className="text-4xl font-medium text-primary md:block hidden">RallyFound</Link>
+          <Link to="/" className="text-4xl font-medium text-primary md:block hidden">RallyFund</Link>
           <div className="flex flex-1 w-full items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:ml-6 md:block w-full">
               <ul className="flex text-[#6E6E6E] gap-[1.5rem] text-xs font-normal justify-center w-full">
