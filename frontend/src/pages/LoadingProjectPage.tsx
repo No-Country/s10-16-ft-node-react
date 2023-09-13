@@ -1,5 +1,6 @@
 import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+
 export const LoadingProjectPage = () => {
   const navigate = useNavigate();
   const isProject = useAuthStore((state)=> state.project);
