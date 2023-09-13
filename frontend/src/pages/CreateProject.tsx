@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
-import React, { useEffect, useRef, useState } from 'react';
-import { useAuthStore } from '../api/auth';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { collection, addDoc } from 'firebase/firestore';
-import db from '../api/firebaseConfig';
+import db, { storage } from '../api/firebaseConfig';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 
 interface CreateProjectProps {
@@ -15,6 +15,7 @@ interface CreateProjectProps {
   goal_acumulated: number,
   category_id: string,
   end_of_fundraiser: string,
+  image: FileList | string
   /* image: string */
 }
 
@@ -25,13 +26,10 @@ export const CreateProject: React.FC = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    /* setValue, */
   } = useForm<CreateProjectProps>();
 
   const [token, setToken] = useState<string | null>('');
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [imgPreview, setImgPreview] = useState<string | null>(null);
-  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
+  
   
   useEffect(()=>{
     if (sessionStorage.getItem('token')) {
@@ -41,60 +39,58 @@ export const CreateProject: React.FC = () => {
     }
   }, []);
 
-  const create = useAuthStore((state)=>state.createProject);
-
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  const handleUploadButtonClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileSelected = (event: React.ChangeEvent<HTMLInputElement>)=>{
-    const selectFile = event.target.files && event.target.files[0];
-    console.log(selectFile);
-    if (selectFile) {
-      setSelectedFile(selectFile);
-      if (selectFile.name) {
-        setSelectedFileName(selectedFileName);
-      }
-    }
-
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      if (reader.result && typeof reader.result === 'string') {
-        setImgPreview(reader.result);
-      }
-    };
-    if (selectFile) {
-      reader.readAsDataURL(selectFile);
-    }
-  };
-
   const projectCategory = watch('category_id');
 
+  const handleFileUpload = async (file: File) => {
+    console.log(file);
+    try {
+      const filename = `${crypto.randomUUID()}-${crypto.randomUUID()}`;
+      const storageRef = ref(storage, `images/${filename}`);
+      await uploadBytes(storageRef, file);
+      const url = await getDownloadURL(storageRef);
+
+      return url;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onSubmit = async (data: CreateProjectProps) => {
-    const newData : CreateProjectProps = {
-      ...data, 
-      goal_amount: Number(data.goal_amount),
-      goal_acumulated: 0, 
-      end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
-    };
+    console.log(data);
 
-    console.log(token);
+    let dowloadURL = '';
     
-    console.log(newData);
-
+    if (typeof data.image !== 'string') {
+      const fileInput = data.image as FileList;
+      const selectedFile = fileInput.item(0);
+    
+      if (selectedFile) {
+        const urlAsyncStorage = await handleFileUpload(selectedFile);
+        if (urlAsyncStorage) {
+          dowloadURL = urlAsyncStorage; 
+        }
+      } else {
+        console.error('No se ha seleccionado ningún archivo.');
+      }
+    }
+  
     if (token === null || token === '') {
       navigate('/auth/login');
     } else {
       try {
+        const newData : CreateProjectProps = {
+          ...data, 
+          goal_amount: Number(data.goal_amount),
+          goal_acumulated: 0, 
+          end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
+          image: dowloadURL,
+        };
         await addDoc(collection(db, 'projects'), newData);
         console.log('Datos guardados en Firestore', newData);
       } catch (error) {
         console.log('Error al guardar datos en Firestore', error);
       }
 
-      create(newData, token);
       navigate('/loadingProject');
     }
   };
@@ -235,18 +231,16 @@ export const CreateProject: React.FC = () => {
               type="file"
               id="image"
               accept='image/*'
-              /*               {...register('image', { required: false })}
- */              className='bg-primary text-white font-Poppins'
-              ref={fileInputRef}
-              onChange={handleFileSelected}
+              {...register('image', { required: false })}
+              className='bg-primary text-white font-Poppins'
             />
-            {selectedFile && imgPreview && (
+            {/* {selectedFile && imgPreview && (
               <img
                 src={imgPreview}
                 alt="preview"
                 className="mx-auto w-1/2 h-1/2"
               />
-            )}
+            )} */}
 
             {/* {errors.image && (
               <span className="text-red-500">Este campo es requerido</span>
@@ -258,7 +252,7 @@ export const CreateProject: React.FC = () => {
             <label htmlFor="projectVideo">
               <button
                 type="button"
-                onClick={handleUploadButtonClick}
+                // onClick={handleUploadButtonClick}
                 className="px-12 py-2 text-primary bg-[#F2F5F7] border border-[#13ADB7] rounded mx-auto block hover:bg-primary hover:text-white transition-all duration-500"
               >
                 Subir un video
@@ -272,7 +266,7 @@ export const CreateProject: React.FC = () => {
               id="projectVideo"
               /* {...register('projectVideo', { required: false })} */
               className="hidden"
-              ref={fileInputRef}
+              // ref={fileInputRef}
             />
             {/* {errors.projectVideo && (
               <span className="text-red-500">Este campo es requerido</span>
@@ -294,6 +288,7 @@ export const CreateProject: React.FC = () => {
             {...register('goal_amount', { required: true })}
             placeholder="Ejemplo: 1000"
             className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
+            accept="image/*"
           />
           {errors.goal_amount && (
             <span className="text-red-500">Este campo es requerido</span>
