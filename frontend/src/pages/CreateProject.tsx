@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { countries } from '../data/countries';
 
 import { collection, addDoc } from 'firebase/firestore';
 import db, { storage } from '../api/firebaseConfig';
@@ -96,7 +97,7 @@ export const CreateProject: React.FC = () => {
   };
 
   return (
-    <div className="bg-background pb-10">
+    <div className="bg-background pb-10 my-12">
       <div>
         <h1 className="text-4xl font-medium font-Ubuntu text-primary text-center py-10">
           RallyFund
@@ -354,11 +355,11 @@ export const CreateProject: React.FC = () => {
               })} */
               className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8]"
             >
-              <option value="">Elige tu pais</option>
-              <option value="1">Lugar 1</option>
-              <option value="2">Lugar 2</option>
-              <option value="3">Lugar 3</option>
-              <option value="4">Lugar 4</option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
             </select>
             {/* {errors.projectLocation && (
               <span className="text-red-500">Este campo es requerido</span>
