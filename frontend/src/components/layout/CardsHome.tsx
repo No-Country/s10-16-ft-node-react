@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { BookmarkSimple } from '@phosphor-icons/react';
-import { useAuthStore } from '../../api/auth';
-import { useEffect } from 'react';
+// import { useAuthStore } from '../../api/auth';
+import { useEffect, useState } from 'react';
 import { useFilterStore, useSearchStore } from '../../store/store';
+import db from '../../api/firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 
 function removeAccentsAndLowerCase(text: string) {
   try {
@@ -21,17 +23,46 @@ function removeAccentsAndLowerCase(text: string) {
   }
 }
 
+type Project = {
+  id: string;
+  category_id: string;
+  tittle: string;
+  description: string;
+  goal_amount: number;
+  goal_acumulated: number;
+  goal_currency: string;
+  end_of_fundraiser: string;
+};
+
 export const CardsHome = () => {
-  const projects = useAuthStore((state)=>state.projects);
-  const findProjects = useAuthStore((state)=>state.findProjects);
-  
-  useEffect(()=>{
+  // const projects = useAuthStore((state)=>state.projects);
+  // const findProjects = useAuthStore((state)=>state.findProjects);
+
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  const getProjects = async () => {
     try {
-      findProjects();   
+      const projectsCollection = collection(db, 'projects');
+      const projectsSnapshot = await getDocs(projectsCollection);
+      const projectsList = projectsSnapshot.docs.map((doc) => doc.data() as Project);
+      setProjects(projectsList);
     } catch (error) {
-      console.error('Error al cargar los proyectos', error);
+      console.error('Error al obtener los proyectos', error);
     }
-  }, [findProjects]);
+  };
+
+  useEffect(() => {
+    getProjects();
+  }, []);
+
+  
+  // useEffect(()=>{
+  //   try {
+  //     findProjects();   
+  //   } catch (error) {
+  //     console.error('Error al cargar los proyectos', error);
+  //   }
+  // }, [findProjects]);
 
 
   const filter = useFilterStore((FilterStoreState) => FilterStoreState.filter);
@@ -85,7 +116,7 @@ export const CardsHome = () => {
                 <div className='w-[317px]  text-cards font-Poppins text-xs font-normal '> {project.category_id} </div>
 
                 <div className="text-sm font-Poppins w-[317px]">
-                  <p className="text-cards ">Recolectado <span className="text-primary "> $10.848 </span> de <span className="text-primary"> ${project.goal_amount} </span> Deseados </p>
+                  <p className="text-cards ">Recolectado <span className="text-primary "> {project.goal_currency}{project.goal_acumulated} </span> de <span className="text-primary"> {project.goal_currency}{project.goal_amount} </span> Deseados </p>
                 </div>
               
                 <div className='flex items-start gap-4 w-[317px] '>
