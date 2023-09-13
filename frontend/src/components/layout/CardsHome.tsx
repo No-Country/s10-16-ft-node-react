@@ -32,6 +32,7 @@ type Project = {
   goal_acumulated: number;
   goal_currency: string;
   end_of_fundraiser: string;
+  image: string;
 };
 
 export const CardsHome = () => {
@@ -109,7 +110,7 @@ export const CardsHome = () => {
         {
           searchFilteredProjects?.map((project, index) =>(
             <div className='' key={index} >
-              <img className='w-[333px] h-[197px] object-cover shadow-md ' src="" alt="" /> 
+              <img className='w-[333px] h-[197px] object-cover shadow-md ' src={project.image} alt="" /> 
               <div className="w-[333px] px-2 pb-5 flex flex-col justify-center items-start gap-4">
                 <div className='w-[317px] h-[30px]  text-black font-Poppins text-xl font-normal mt-4'>{project.tittle} </div>
                 <div className='w-[317px] h-[84px] text-cards font-Poppins text-sm font-normal '>{project.description} </div>
