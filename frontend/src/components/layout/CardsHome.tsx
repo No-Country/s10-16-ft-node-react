@@ -45,7 +45,10 @@ export const CardsHome = () => {
     try {
       const projectsCollection = collection(db, 'projects');
       const projectsSnapshot = await getDocs(projectsCollection);
-      const projectsList = projectsSnapshot.docs.map((doc) => doc.data() as Project);
+      const projectsList = projectsSnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }) as Project);
       setProjects(projectsList);
     } catch (error) {
       console.error('Error al obtener los proyectos', error);
