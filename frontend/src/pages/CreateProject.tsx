@@ -3,11 +3,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
 
+import { collection, addDoc } from 'firebase/firestore';
+import db from '../api/firebaseConfig';
+
+
 interface CreateProjectProps {
   tittle: string,
   description: string,
   goal_currency: string,
   goal_amount: number,
+  goal_acumulated: number,
   category_id: string,
   end_of_fundraiser: string,
   /* image: string */
@@ -67,18 +72,31 @@ export const CreateProject: React.FC = () => {
 
   const projectCategory = watch('category_id');
 
-  const onSubmit = (data: CreateProjectProps) => {
+  const onSubmit = async (data: CreateProjectProps) => {
     const newData : CreateProjectProps = {
       ...data, 
-      goal_amount: Number(data.goal_amount), 
+      goal_amount: Number(data.goal_amount),
+      goal_acumulated: 0, 
       end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
     };
 
     console.log(token);
     
     console.log(newData);
-    create(newData, token);
-    navigate('/loadingProject');
+
+    if (token === null || token === '') {
+      navigate('/auth/login');
+    } else {
+      try {
+        await addDoc(collection(db, 'projects'), newData);
+        console.log('Datos guardados en Firestore', newData);
+      } catch (error) {
+        console.log('Error al guardar datos en Firestore', error);
+      }
+
+      create(newData, token);
+      navigate('/loadingProject');
+    }
   };
 
   return (
