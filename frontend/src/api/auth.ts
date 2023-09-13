@@ -3,12 +3,11 @@ import { create } from 'zustand';
 
 const API = 'https://rallyfund.onrender.com';
 export type User = {
-  id: string,
   email: string,
-  password: string,
+  password: string
   first_name: string,
   last_name: string,
-  type: string,
+  type: string
 };
 
 type LoginUser = {
