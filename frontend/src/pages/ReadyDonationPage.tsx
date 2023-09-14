@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { readyDonaction } from '../assets';
 
 
@@ -14,7 +15,7 @@ export const ReadyDonationPage = () => {
         <p className="text-center text-xl font-Poppins">Gracias por apoyar, recibiras un correo de confirmacion con tu factura en tu E-mail</p> 
       </div>
 
-      <button className='w-[564px] h-[50px] max-w-[80%] m-auto sm:  bg-primary rounded-lg text-white font-bold font-Raleway text-m hover:bg-hover'>Finalizar</button>
+      <Link to={'/'} className='w-[564px] h-[50px] max-w-[80%] m-auto flex items-center justify-center sm:bg-primary rounded-lg text-white font-bold font-Raleway text-m hover:bg-hover'>Finalizar</Link>
     </div>
   );
 };
