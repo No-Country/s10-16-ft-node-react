@@ -42,6 +42,7 @@ type AuthStore = {
   createProject: (data: CreateProject, token: string | null) => void
   logout: () => void
   projects: Projects[] | null
+  projectId: string | null
   findProjects: () => void
   detailProject: Projects | null
   findProject: (id: string | undefined, token: string | null) => void
@@ -52,6 +53,7 @@ export const useAuthStore = create<AuthStore>((set)=>({
   project: false,
   loginUser: null,
   user: null,
+  projectId: null,
   singUp: (user) =>{
     axios.post(`${API}/auth/register`, user)
       .then((res)=>{
@@ -82,6 +84,8 @@ export const useAuthStore = create<AuthStore>((set)=>({
       .then((res)=>{
         console.log(res.data);
         set({ project: true });
+        set({ projectId: res.data.id });
+        
       });
   },
 

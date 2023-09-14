@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ready } from '../assets';
-
  
 
 export const ReadyProyectPage = () => {

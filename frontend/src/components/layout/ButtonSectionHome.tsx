@@ -8,7 +8,7 @@ type ButtonHome = {
 export const ButtonSectionHome = () => {
   const buttonHome: ButtonHome[] = [
     { title: 'Tecnología' },
-    { title: 'Nuevos' },
+    { title: 'Entretenimiento' },
     { title: 'Educación' },
     { title: 'Agricultura' },
     { title: 'Salud' },

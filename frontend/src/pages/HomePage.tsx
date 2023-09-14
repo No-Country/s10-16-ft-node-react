@@ -24,7 +24,7 @@ export const HomePage = () => {
         <Step />
       </div>
 
-      <div className="flex w-full py-10 justify-center items-center  ">
+      <div className="flex w-full py-10 justify-center items-center  " id='projects'>
         <h2 className=" text-primary text-center font-Raleway text-4xl  font-bold gap-2.5  ">
           Proyectos Abiertos
         </h2>
@@ -44,7 +44,7 @@ export const HomePage = () => {
             <h4 className="text-white text-2xl md:text-2xl lg:text-4xl font-bold ">
               1M+
             </h4>
-            <p className="w-24 md:w-44 text-white font-Poppins text-xs md:text-sm lg:text-base font-normal">
+            <p className="w-24 md:w-44 text-white font-Poppins text-xs md:text-sm lg:text-base font-normal" id='project'>
               Proyectos en listados en nuestra plataforma
             </p>
           </div>

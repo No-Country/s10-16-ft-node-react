@@ -166,6 +166,9 @@ export const CreateProject: React.FC = () => {
                 Selecciona la categoria del proyecto
               </option>
               <option value="Tecnología" className="text-black">
+                Entretenimiento
+              </option>
+              <option value="Tecnología" className="text-black">
                 Tecnología
               </option>
               <option value="Educación" className="text-black">
@@ -308,13 +311,12 @@ export const CreateProject: React.FC = () => {
             </label>
             <input
               type="date"
+              disabled
               id="projectStartDate"
-              /*               {...register('projectStartDate', { required: true })}
- */              className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8] uppercase"
+              value={new Date().toISOString().split('T')[0]}
+              className="w-full px-4 py-4 border border-[#D7D7D7] rounded bg-[#F8F8F8] uppercase"
             />
-            {/* {errors.projectStartDate && (
-              <span className="text-red-500">Este campo es requerido</span>
-            )} */}
+
           </div>
 
           {/* Fecha de finalizacion */}
