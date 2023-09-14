@@ -31,12 +31,11 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="registerChoice" element={<RegisterChoice />} />
-          
         </Route>
-        <Route path="loadingProject" element={<LoadingProjectPage />} />
         <Route path="loadingTransaction" element={<TransactionLoadingPage />} />
+        <Route path="loadingProject/:id" element={<LoadingProjectPage />} />
         <Route path="readyDonation" element={<ReadyDonationPage/>} />
-        <Route path="ready" element={<ReadyProyectPage  />} />
+        <Route path="ready/:id" element={<ReadyProyectPage  />} />
         <Route path="inProcess" element={<InProcessPage  />} />
         <Route path="sendEmail" element={<EmailPage />} />
       </Routes>  

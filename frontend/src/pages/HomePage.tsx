@@ -1,3 +1,4 @@
+// import { useState } from 'react';
 import { home2 } from '../assets';
 import {
   Hero,
@@ -24,7 +25,7 @@ export const HomePage = () => {
         <Step />
       </div>
 
-      <div className="flex w-full py-10 justify-center items-center  ">
+      <div id='projects' className="flex w-full py-10 pt-20 justify-center items-center">
         <h2 className=" text-primary text-center font-Raleway text-4xl  font-bold gap-2.5  ">
           Proyectos Abiertos
         </h2>
@@ -76,9 +77,17 @@ export const HomePage = () => {
           <p className="text-white font-Raleway text-lg  lg:text-4xl text-center w-full md:w-[619px] h-[78px] mt-2 md:mt-4">
             Dirigidos por emprendedoras
           </p>
-          <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
-            Apoya Ahora
-          </button>
+          <div className="flex gap-2">
+            <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
+              Crear Proyecto
+            </button>
+            <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
+                Apoya Ahora
+            </button>
+            <a href="#projects" className='text-white font-Raleway text-lg md:text-xl lg:text-2xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0'>
+              Apoya Ahora
+            </a>
+          </div>
         </div>
       </div>
 
