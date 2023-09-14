@@ -2,6 +2,7 @@ import { CheckBox } from '../../components';
 import { imgExample, master, visa, google, apple } from '../../assets';
 import { CaretLeft } from '@phosphor-icons/react';
 import { useState } from 'react';
+
 export const PopUpDonation = () => {
   const [selectedValue, setSelectedValue] = useState<number | string >(0);
   const [isChecked, setIsChecked] = useState(false);

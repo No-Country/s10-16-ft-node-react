@@ -76,9 +76,14 @@ export const HomePage = () => {
           <p className="text-white font-Raleway text-lg  lg:text-4xl text-center w-full md:w-[619px] h-[78px] mt-2 md:mt-4">
             Dirigidos por emprendedoras
           </p>
-          <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
-            Apoya Ahora
-          </button>
+          <div className="flex gap-2">
+            <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
+              Crear Proyecto
+            </button>
+            <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
+              Apoya Ahora
+            </button>
+          </div>
         </div>
       </div>
 
