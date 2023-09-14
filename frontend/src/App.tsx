@@ -33,9 +33,9 @@ function App() {
           <Route path="registerChoice" element={<RegisterChoice />} />
           
         </Route>
-        <Route path="loadingProject" element={<LoadingProjectPage />} />
+        <Route path="loadingProject/:id" element={<LoadingProjectPage />} />
         <Route path="readyDonation" element={<ReadyDonationPage/>} />
-        <Route path="ready" element={<ReadyProyectPage  />} />
+        <Route path="ready/:id" element={<ReadyProyectPage  />} />
         <Route path="inProcess" element={<InProcessPage  />} />
         <Route path="sendEmail" element={<EmailPage />} />
         <Route path="donation" element={<PopUpDonation />} />

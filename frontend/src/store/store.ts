@@ -29,3 +29,13 @@ export const useSearchStore = create<SearchStoreState>()((set) => ({
   search: '',
   setSearch: (search) => set({ search }),
 }));
+
+interface ProjectIDStoreState {
+  projectID: string;
+  setProjectID: (projectID: string) => void;
+}
+
+export const useProjectIDStore = create<ProjectIDStoreState>()((set) => ({
+  projectID: '',
+  setProjectID: (projectID) => set({ projectID }),
+}));
