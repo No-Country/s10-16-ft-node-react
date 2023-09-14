@@ -115,8 +115,8 @@ export const CardsHome = () => {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
         {
           searchFilteredProjects?.map((project, index) =>(
-            <div className='mb-' key={index} >
-              <img className='w-[333px] h-[197px]  object-cover shadow-md ' src={project.image} alt="" /> 
+            <div className='hover:shadow-lg' key={index} >
+              <img className='w-[333px] h-[197px]  object-cover drop-shadow-lg ' src={project.image} alt="" /> 
               <div className="w-[333px] px-2 pb-5 flex flex-col justify-center items-start gap-4">
                 <div className='w-[317px] h-[30px] mb-4 text-black font-Poppins text-xl font-normal mt-4'>{project.tittle} </div>
                 <div className='w-[317px] h-[84px] text-cards mb-10 font-Poppins text-sm font-normal '>{project.description} </div>
@@ -132,7 +132,7 @@ export const CardsHome = () => {
                   <div
                     className="absolute top-0 left-0 h-full bg-primary rounded-lg"
                     style={{
-                      width: `${(project.goal_acumulated / project.goal_amount) * 100}%`,
+                      width: `${(project.goal_acumulated / project.goal_amount) * 100}%`, maxWidth: '100%',
                     }}
                   ></div>
                 </div>

@@ -65,11 +65,12 @@ export const DetailPage = () => {
   // }, [id, findProject, token]);
 
   const handleCheckboxChange = () => {
-    setIsChecked(!isChecked);
+    /* setIsChecked(!isChecked); */
   };
 
   const handleCheckboxClick = (value: string | number) => {
     setSelectedValue(value);
+    setIsChecked(value === 'otro');
   };
 
   const cantidad = [50, 100, 200, 500, 750, 1000, 1500, 'otro'];
@@ -162,7 +163,7 @@ export const DetailPage = () => {
               <button onClick={togglePopup} className="py-2 px-4 rounded-lg text-white bg-primary hover:bg-hover transition-all duration-300">
                   Donar ahora
               </button>
-              <PopUpDonation isOpen={openPopup} onClose={handleClosePopup} image={project?.image} category={project?.category_id} isChecked={isChecked}selectedValue={selectedValue} onCheckboxChange={handleCheckboxChange} onCheckboxClick={handleCheckboxClick} id={project?.id} />
+              <PopUpDonation isOpen={openPopup} onClose={handleClosePopup} image={project?.image} category={project?.category_id} isChecked={isChecked}selectedValue={selectedValue} onCheckboxChange={handleCheckboxChange} onCheckboxClick={handleCheckboxClick} id={project?.id} setSelectedValue={setSelectedValue} project={project}/>
             </div>
           </div>
           <div className="w-80 flex flex-col gap-4">

@@ -69,20 +69,15 @@ export const HomePage = () => {
 
       <div className="relative">
         <img className="w-full object-cover" src={home2} alt="" />
-        <div className="absolute inset-0 flex flex-col justify-center items-center mt-8 md:mt-0">
-          <h4 className="text-white font-Raleway text-3xl md:text-5xl lg:text-7xl text-center font-bold">
+        <div className="absolute w-[80%] inset-0 flex flex-col justify-center items-start mx-auto mt-8 md:mt-0">
+          <h4 className="text-white font-Raleway text-3xl md:text-5xl lg:text-7xl font-bold">
             Apoya los mejores Proyectos
           </h4>
-          <p className="text-white font-Raleway text-lg  lg:text-4xl text-center w-full md:w-[619px] h-[78px] mt-2 md:mt-4">
+          <p className="text-white font-Raleway text-lg  lg:text-4xl w-full md:w-[619px] h-[78px] mt-2 md:mt-4">
             Dirigidos por emprendedoras
           </p>
           <div className="flex gap-2">
-            <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
-              Crear Proyecto
-            </button>
-            <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
-                Apoya Ahora
-            </button>
+           
             <a href="#projects" className='text-white font-Raleway text-lg md:text-xl lg:text-2xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0'>
               Apoya Ahora
             </a>
