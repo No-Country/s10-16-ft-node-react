@@ -1,8 +1,9 @@
 import { BrowserRouter, Route, Routes, Outlet } from 'react-router-dom';
-import { HomePage, EmailPage, DetailPage, UserProfile, CreateProject, PaymentForm, InProcessPage, LoadingProjectPage,  ReadyProyectPage, ReadyDonationPage } from './pages';
+import { HomePage, EmailPage, DetailPage, UserProfile, CreateProject, InProcessPage, LoadingProjectPage,  ReadyProyectPage, ReadyDonationPage } from './pages';
 import { LayoutAuth } from './Layout/LayoutAuth';
-import { Footer, Navbar, PopUpDonation } from './components/layout';
+import { Footer, Navbar } from './components/layout';
 import { Login, Register, RegisterChoice } from './auth';
+import { TransactionLoadingPage } from './pages/TransactionLoadingPage';
 
 
 function App() {
@@ -23,7 +24,6 @@ function App() {
         <Route element={<LayoutWithNavbarAndFooter />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/detail/:id" element={<DetailPage />} />
-          <Route path="payment" element={<PaymentForm />} />
           <Route path="createProject" element={<CreateProject />} />
           <Route path="user-profile" element={<UserProfile />} />
         </Route>
@@ -34,11 +34,11 @@ function App() {
           
         </Route>
         <Route path="loadingProject" element={<LoadingProjectPage />} />
+        <Route path="loadingTransaction" element={<TransactionLoadingPage />} />
         <Route path="readyDonation" element={<ReadyDonationPage/>} />
         <Route path="ready" element={<ReadyProyectPage  />} />
         <Route path="inProcess" element={<InProcessPage  />} />
         <Route path="sendEmail" element={<EmailPage />} />
-        <Route path="donation" element={<PopUpDonation />} />
       </Routes>  
     </BrowserRouter>
   );

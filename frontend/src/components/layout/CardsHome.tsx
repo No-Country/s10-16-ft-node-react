@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { useFilterStore, useSearchStore } from '../../store/store';
 import db from '../../api/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
-import { PopUpDon } from './PopUpDon/PopUpDon';
-
+import { Link } from 'react-router-dom';
+/* import { PopUpDon } from './PopUpDon/PopUpDon';
+ */
 function removeAccentsAndLowerCase(text: string) {
   try {
     // Validar que el texto sea un string y no sea null
@@ -111,7 +112,7 @@ export const CardsHome = () => {
 
   console.log('projects', projects);
 
-  const [showModal, setShowModal] = useState(false);
+  /*   const [showModal, setShowModal] = useState(false);
 
   const closeModal = () => {
     setShowModal(false);
@@ -119,7 +120,7 @@ export const CardsHome = () => {
   };
 
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
+ */
 
   return (
     <div className="flex justify-center  items-center  gap-4 " id="proyecto">
@@ -158,16 +159,16 @@ export const CardsHome = () => {
                 </p>
               </div>
 
-              {/* <div className="flex gap-4 w-[317px] justify-center">
+              <div className="flex gap-4 w-[317px] justify-center">
                 <Link
                   to={`/detail/${project.id}`}
                   className="flex px-20 py-3 justify-center gap-2.5 rounded border-[1px] border-[#13ADB7] font-Poppins text-sm font-normal text-primary "
                 >
                   Donar Ahora
                 </Link>
-              </div> */}
+              </div>
 
-              <div className="flex gap-4 w-[317px] justify-center">
+              {/* <div className="flex gap-4 w-[317px] justify-center">
                 <button
                   className="flex px-20 py-3 justify-center gap-2.5 rounded border-[1px] border-[#13ADB7] font-Poppins text-sm font-normal text-primary hover:bg-hover hover:text-white transition-all duration-300 ease-in-out"
                   type='button'
@@ -182,7 +183,7 @@ export const CardsHome = () => {
                   <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none drop-shadow-2xl">
                       <div className="relative w-auto my-6 mt-12 mx-auto max-w-3xl ">
-                        {/*content*/}
+                        
                         <div className="border-0 rounded-3xl shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
                           <div className="flex items-center text-center p-5 pl-14 border-b border-solid border-slate-200">
                             <h3 className="text-3xl font-semibold">
@@ -206,7 +207,7 @@ export const CardsHome = () => {
                     </div>
                   </> 
                 ) : null}
-              </div>
+              </div> */}
             </div>
           </div>
         ))}
