@@ -1,9 +1,24 @@
 import { CheckBox } from '../..';
-import { imgExample, master, visa, google, apple } from '../../../assets';
+import { master, visa, google, apple } from '../../../assets';
 // import { CaretLeft } from '@phosphor-icons/react';
 import { useState } from 'react';
+import { doc, updateDoc } from 'firebase/firestore';
+import db from '../../../api/firebaseConfig';
 
-export const PopUpDon = () => {
+type Project = {
+  id: string;
+  category_id: string;
+  tittle: string;
+  description: string;
+  goal_amount: number;
+  goal_acumulated: number;
+  goal_currency: string;
+  end_of_fundraiser: string;
+  image: string;
+};
+  
+
+export const PopUpDon = ({ project, closeModal }: { project: Project, closeModal: () => void }) => {
   const [selectedValue, setSelectedValue] = useState < number | string >(0);
   const [isChecked, setIsChecked] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState('');
@@ -20,22 +35,64 @@ export const PopUpDon = () => {
   const cantidad = [50, 100, 200, 500, 750, 1000, 1500, 'otro'];
   const payment = [{ img: master, img1: visa, pay: 'Credit or debit card' }, { img: google, pay: 'Google pay' }, { img: apple, pay: 'Apple pay' }];
 
+  const donationAmount = (project.goal_acumulated) + Number(selectedValue);
+
+  const makeDonation = async () => {
+    try {
+      const projectRef = doc(db, 'projects', project.id);
+
+      await updateDoc(projectRef, {
+        goal_acumulated: project.goal_acumulated + Number(selectedValue),
+      });
+      console.log('Donacion realizada con exito', project.goal_acumulated);
+    } catch (error) {
+      console.error('Error al realizar la donacion', error);
+    }
+  };
+
+  const handlePayment = async () => {
+    console.log('selectedValue', selectedValue);
+
+    await makeDonation();
+
+    closeModal();
+  };
 
   return (
     <section className="w-[550px] h-[70vh] md:h-[65vh] mx-auto mt-6 font-Poppins">
       <div className='flex flex-col items-center gap-8'>
         <div className='flex flex-col gap-[11px]'>
-          <img src={imgExample} alt="" />
+          <img src={project.image} alt="" />
           <div className='text-center'>
-            <p className='font-Poppins text-lg'> Estas apoyando a : <span className=' text-primary'>La educacion</span></p>
-            <p className='font-Poppins text-lg'>Tu donacion sera para : <span className='text-primary'>ProSkills</span></p>
+            <p className='font-Poppins text-lg'> Estas apoyando a: <span className=' text-primary'>{project.category_id}</span></p>
+            <p className='font-Poppins text-lg'>Tu donacion sera para: <span className='text-primary'>{project.tittle}</span></p>
           </div>
         </div>
         <div>
           {
             !isChecked
-              ? <input className='text-primary mb-2' value={`$ ${selectedValue}`} />
-              : <input className='text-primary mb-2' ref={isChecked ? (input) => input && input.focus() : null} onChange={(value) => setSelectedValue(value.target.value)} />
+              ? (
+                <input 
+                  className='text-primary mb-2' 
+                  value={`$ ${selectedValue}`} 
+                />)
+              : 
+              (
+                <>
+                  <span className='text-primary mb-2 mr-1'>$</span>
+                  <input 
+                    type='number'
+                    className='text-primary mb-2' 
+                    ref={isChecked ? (input) => input && input.focus() : null} 
+                    onChange={(e) => {
+                      const numericValue = Number(e.target.value);
+                      if (!isNaN(numericValue)) {
+                        setSelectedValue(numericValue);
+                      }
+                    }}
+                  />
+                </>
+              )
           }
           <hr />
           <fieldset className="flex justify-between mt-4">
@@ -93,11 +150,11 @@ export const PopUpDon = () => {
             <hr className='pb-[13px] border-black' />
             <div className='flex justify-between text-base'>
               <p>Total</p>
-              <p>$ 100</p>
+              <p>$ {donationAmount}</p>
             </div>
           </div>
         </div>
-        <button className="m-auto mb-6 p-2.5 rounded-lg bg-primary text-white hover:bg-hover">Pagar ahora</button>
+        <button className="m-auto mb-6 p-2.5 rounded-lg bg-primary text-white hover:bg-hover" onClick={handlePayment}>Pagar ahora</button>
       </div>
     </section>
   );

@@ -39,8 +39,6 @@ type Project = {
 };
 
 export const CardsHome = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const [projects, setProjects] = useState<Project[]>([]);
 
   const getProjects = async () => {
@@ -111,7 +109,17 @@ export const CardsHome = () => {
     }
   });
 
-  
+  console.log('projects', projects);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const closeModal = () => {
+    setShowModal(false);
+    window.location.reload();
+  };
+
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
 
   return (
     <div className="flex justify-center  items-center  gap-4 " id="proyecto">
@@ -163,11 +171,14 @@ export const CardsHome = () => {
                 <button
                   className="flex px-20 py-3 justify-center gap-2.5 rounded border-[1px] border-[#13ADB7] font-Poppins text-sm font-normal text-primary hover:bg-hover hover:text-white transition-all duration-300 ease-in-out"
                   type='button'
-                  onClick={() => setShowModal(true)}
+                  onClick={() => {
+                    setSelectedProject(project);
+                    setShowModal(true);
+                  }}
                 >
                   Donar Ahora
                 </button>
-                {showModal ? (
+                {showModal && selectedProject ? (
                   <>
                     <div className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none drop-shadow-2xl">
                       <div className="relative w-auto my-6 mt-12 mx-auto max-w-3xl ">
@@ -175,7 +186,7 @@ export const CardsHome = () => {
                         <div className="border-0 rounded-3xl shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
                           <div className="flex items-center text-center p-5 pl-14 border-b border-solid border-slate-200">
                             <h3 className="text-3xl font-semibold">
-                              Estas donando a {project.tittle}
+                              Estas donando a {selectedProject.tittle}
                             </h3>
                             <button
                               className="p-1 ml-auto border-0 text-black float-right text-3xl leading-none font-semibold outline-none focus:outline-none hover:scale-125 transition-all duration-300 ease-in-out"
@@ -187,7 +198,7 @@ export const CardsHome = () => {
                             </button>
                           </div>
                           <div className='md:overflow-y-auto mb-6 bg-[#f2f5f7]'>
-                            <PopUpDon />
+                            <PopUpDon project={selectedProject} closeModal={closeModal} />
                           </div>
                           
                         </div>
