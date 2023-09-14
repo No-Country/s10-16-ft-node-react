@@ -1,3 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* register & login css */
+.input {
+  @apply transition duration-200 ease-in-out;
+}
+
+.input:focus,
+.input:active,
+.input.filled {
+  @apply transition-all duration-500 ease-out pt-6 pb-2;
+}
+
+.input:focus + .label,
+.input:active + .label,
+.input.filled + .label {
+  @apply text-xs transition-all duration-500 ease-out mt-2;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f7f7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #13adb7;
+  border-radius: 999px;
+}

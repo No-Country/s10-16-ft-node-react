@@ -1,6 +1,11 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+enum AccountType {
+  PERSONAL
+  COMPANY
+}
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,7 +15,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model user {
+model accounts {
   id   String @id @default(uuid())
-  name String
+  email String @unique
+  password String @unique
+  address String?
+  type AccountType @default(PERSONAL)
+  postal_code String?
+  phone_number Int?
+  profile_picture String?
+  country String?
+  document_type String?
+  document_number Int?
+  first_name String?
+  last_name String?
+  verified Boolean?
+  is_active Boolean?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  projects projects[]
+}
+
+model projects {
+  id   String @id @default(uuid())
+  tittle String?
+  description String?
+  goal_currency String?
+  goal_amount Int?
+  is_active Boolean?
+  category_id String?
+  goal_completed Boolean?
+  end_of_fundraiser DateTime?
+  total_founding Int?
+  image String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+  account_id String 
+  accounts accounts @relation(fields: [account_id], references: [id])
 }
