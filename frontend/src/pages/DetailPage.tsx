@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 // import { useAuthStore } from '../api/auth';
 import db from '../api/firebaseConfig';
 import { getDoc, doc } from 'firebase/firestore';
+import { PopUpDonation } from '../components/layout';
 
 type Project = {
   id: string;
@@ -24,7 +25,16 @@ export const DetailPage = () => {
   // const [token, setToken] = useState<string | null>('');
 
   const [isChecked, setIsChecked] = useState(false);
+  const [openPopup, setOpenPopup] = useState(false);
   const { id } = useParams();
+
+  const togglePopup = () => {
+    setOpenPopup(!openPopup);
+  };
+
+  const handleClosePopup = () => {
+    setOpenPopup(false);
+  };
 
   // const detailProject = useAuthStore((state)=>state.detailProject);
   // const findProject = useAuthStore((state)=>state.findProject);
@@ -149,9 +159,10 @@ export const DetailPage = () => {
                 {isChecked ? svgChecked : svgUnchecked}
                 <label htmlFor="checkbox9">Hacer donación anónima</label>
               </fieldset>
-              <button className="py-2 px-4 rounded-lg text-white bg-primary hover:bg-hover transition-all duration-300">
+              <button onClick={togglePopup} className="py-2 px-4 rounded-lg text-white bg-primary hover:bg-hover transition-all duration-300">
                   Donar ahora
               </button>
+              <PopUpDonation isOpen={openPopup} onClose={handleClosePopup} image={project?.image} category={project?.category_id} isChecked={isChecked}selectedValue={selectedValue} onCheckboxChange={handleCheckboxChange} onCheckboxClick={handleCheckboxClick} id={project?.id} />
             </div>
           </div>
           <div className="w-80 flex flex-col gap-4">
@@ -175,8 +186,8 @@ export const DetailPage = () => {
                     fill="none"
                   >
                     <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
+                      fillRule="evenodd"
+                      clipRule="evenodd"
                       d="M14.3702 13.4556C15.6172 11.8479 16.2049 9.8256 16.0137 7.80003C15.8225 5.77446 14.8669 3.89779 13.3411 2.55182C11.8154 1.20585 9.83422 0.491685 7.80062 0.554613C5.76702 0.617541 3.83378 1.45284 2.39419 2.89057C0.953343 4.32929 0.115317 6.26329 0.0508851 8.29843C-0.0135467 10.3336 0.700465 12.3167 2.04742 13.8437C3.39437 15.3707 5.27289 16.3266 7.30016 16.5167C9.32744 16.7067 11.3509 16.1166 12.9582 14.8666L13.0012 14.9116L17.2432 19.1546C17.3361 19.2475 17.4464 19.3212 17.5678 19.3715C17.6892 19.4217 17.8193 19.4476 17.9507 19.4476C18.0821 19.4476 18.2122 19.4217 18.3336 19.3715C18.455 19.3212 18.5653 19.2475 18.6582 19.1546C18.7511 19.0617 18.8248 18.9514 18.8751 18.83C18.9254 18.7086 18.9512 18.5785 18.9512 18.4471C18.9512 18.3157 18.9254 18.1856 18.8751 18.0642C18.8248 17.9428 18.7511 17.8325 18.6582 17.7396L14.4152 13.4976C14.4006 13.4832 14.3856 13.4692 14.3702 13.4556ZM12.2942 4.30557C12.8588 4.86105 13.3078 5.52281 13.6154 6.2527C13.923 6.98259 14.083 7.76615 14.0862 8.55819C14.0894 9.35022 13.9358 10.1351 13.6342 10.8674C13.3326 11.5998 12.8889 12.2652 12.3289 12.8253C11.7688 13.3853 11.1034 13.8289 10.371 14.1306C9.63868 14.4322 8.85384 14.5858 8.06181 14.5826C7.26977 14.5793 6.48621 14.4193 5.75632 14.1118C5.02644 13.8042 4.36467 13.3552 3.80919 12.7906C2.69911 11.6623 2.07984 10.141 2.08629 8.55819C2.09273 6.97536 2.72436 5.45921 3.8436 4.33998C4.96283 3.22074 6.47899 2.58911 8.06181 2.58267C9.64463 2.57622 11.1659 3.19548 12.2942 4.30557Z"
                       fill="#F2F5F7"
                     />
