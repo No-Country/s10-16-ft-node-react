@@ -14,7 +14,12 @@ export const Hero = () => {
           <button className="text-white font-Raleway text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0">
               Crear Proyecto
           </button>
-          <button className='text-white font-Raleway text-lg md:text-xl lg:text-2xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0'>Apoya Ahora</button>
+          <button className='text-white font-Raleway text-lg md:text-xl lg:text-2xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0'>
+            Apoya Ahora
+          </button>
+          <a href="#projects" className='text-white font-Raleway text-lg md:text-xl lg:text-2xl font-bold leading-5 flex p-[12px] md:p-[16px] rounded-lg bg-primary mx-auto mb-6 md:mb-0'>
+            Apoya Ahora
+          </a>
         </div>
         
       </div>
