@@ -1,15 +1,20 @@
 // import { useAuthStore } from '../api/auth';
 import { useNavigate } from 'react-router-dom';
+import { useProjectIDStore } from '../store/store';
 
 export const LoadingProjectPage = () => {
   const navigate = useNavigate();
   // const isProject = useAuthStore((state)=> state.project);
 
   // console.log(isProject);
+  
+  const projectID = useProjectIDStore((state) => state.projectID);
+
+  console.log('La id del proyecto en LoadingProjectPage es: ', projectID);
 
 
   setTimeout(() => {
-    navigate('/ready');
+    navigate(`/ready/${projectID}`);
   }, 5000); // 5 segundos
 
   return (

@@ -7,6 +7,8 @@ import { collection, addDoc } from 'firebase/firestore';
 import db, { storage } from '../api/firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
+import { useProjectIDStore } from '../store/store';
+
 
 interface CreateProjectProps {
   tittle: string,
@@ -16,8 +18,8 @@ interface CreateProjectProps {
   goal_acumulated: number,
   category_id: string,
   end_of_fundraiser: string,
-  image: FileList | string
-  /* image: string */
+  image: FileList | string,
+  id: string,
 }
 
 export const CreateProject: React.FC = () => {
@@ -30,7 +32,8 @@ export const CreateProject: React.FC = () => {
   } = useForm<CreateProjectProps>();
 
   const [token, setToken] = useState<string | null>('');
-  
+
+  let projectID: string;
   
   useEffect(()=>{
     if (sessionStorage.getItem('token')) {
@@ -86,13 +89,20 @@ export const CreateProject: React.FC = () => {
           end_of_fundraiser: new Date(data.end_of_fundraiser).toISOString(),
           image: dowloadURL,
         };
-        await addDoc(collection(db, 'projects'), newData);
         console.log('Datos guardados en Firestore', newData);
+
+        const docRef = await addDoc(collection(db, 'projects'), newData);
+        projectID = docRef.id;
+
+        useProjectIDStore.setState({ projectID: projectID });
+
+        console.log('Document written with ID: ', projectID);
       } catch (error) {
         console.log('Error al guardar datos en Firestore', error);
       }
 
-      navigate('/loadingProject');
+      console.log('El estado GLOBAL del ProjectID es: ', useProjectIDStore.getState().projectID);
+      navigate(`/loadingProject/${projectID}`);
     }
   };
 

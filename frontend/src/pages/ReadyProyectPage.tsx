@@ -1,8 +1,15 @@
 import { Link } from 'react-router-dom';
 import { ready } from '../assets';
- 
+import { useProjectIDStore } from '../store/store';
+
+
+
 
 export const ReadyProyectPage = () => {
+  const projectID = useProjectIDStore((state) => state.projectID);
+
+  console.log('La id del proyecto en ReadyProjectPage es: ', projectID);
+
   return (
     <div className="flex flex-col w-screen h-screen">
       <div className='flex flex-col gap-6'>
@@ -15,7 +22,7 @@ export const ReadyProyectPage = () => {
         <p className="text-center text-xl font-Poppins">Tu proyecto esta publicado, esperamos recaudes lo esperado.</p> 
       </div>
 
-      <Link to={'/'} className='w-[564px] h-[50px] max-w-[80%] m-auto flex items-center justify-center sm:bg-primary rounded-lg text-white font-bold font-Raleway text-m hover:bg-hover'>Finalizar</Link>
+      <Link to={`/detail/${projectID}`} className='w-[564px] h-[50px] max-w-[80%] m-auto flex items-center justify-center sm:bg-primary rounded-lg text-white font-bold font-Raleway text-m hover:bg-hover'>Finalizar</Link>
     </div>
   );
 };
