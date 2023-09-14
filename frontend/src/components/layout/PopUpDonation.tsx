@@ -7,18 +7,30 @@ import { updateDoc, doc } from 'firebase/firestore';
 import { PaymentForm } from '../../pages';
 import { useNavigate } from 'react-router-dom';
 
-
+type Project = {
+  id: string;
+  category_id: string;
+  tittle: string;
+  description: string;
+  goal_amount: number;
+  goal_acumulated: number;
+  goal_currency: string;
+  end_of_fundraiser: string;
+  image: string;
+};
 
 type PopupProps = {
   isOpen: boolean;
   onClose: () => void;
   image: string;
+  project: Project
   category: string;
   isChecked: boolean; // Recibe la prop isChecked
   selectedValue: number | string; // Recibe la prop selectedValue
   onCheckboxChange: () => void; // Recibe la prop onCheckboxChange
   onCheckboxClick: (value: string | number) => void;
   id: string;
+  setSelectedValue: (value: number ) => void
 };
 
 const calcularPorcentaje = (selectedValue: number, tax: number): number => {
@@ -26,18 +38,21 @@ const calcularPorcentaje = (selectedValue: number, tax: number): number => {
   const result = selectedValue - (selectedValue * tax) / 100;
   return result;
 };
-const updateGoalAcumulated = async (id: string, newGoalAcumulated: number) => {
+const updateGoalAcumulated = async (id: string, newGoalAcumulated: number, project: Project) => {
   const documentRef = doc(db, 'projects', id); // Reemplaza 'tu_coleccion' y 'documentId' con los valores correctos
   try {
     await updateDoc(documentRef, {
-      goal_acumulated: newGoalAcumulated,
-    });
+      goal_acumulated: project.goal_acumulated + newGoalAcumulated,
+      
+    },
+    );
+    console.log(project.goal_acumulated);
     console.log('Campo "goal_acumulated" actualizado exitosamente en Firestore.');
   } catch (error) {
     console.error('Error al actualizar el campo "goal_acumulated" en Firestore:', error);
   }
 };
-export const PopUpDonation: FC<PopupProps> = ({ isOpen, onClose, image, category, isChecked, selectedValue, onCheckboxChange, onCheckboxClick, id }) => {
+export const PopUpDonation: FC<PopupProps> = ({ isOpen, onClose, image, category, isChecked, selectedValue, onCheckboxClick, id, setSelectedValue, project }) => {
   const navigate = useNavigate();
   // const [selectedValue, setSelectedValue] = useState<number | string >(0);
   // const [isChecked, setIsChecked] = useState(false);
@@ -71,12 +86,14 @@ export const PopUpDonation: FC<PopupProps> = ({ isOpen, onClose, image, category
     typeof selectedValue === 'number' ? selectedValue : 0,
     tax,
   );
+
+  
     
   const handlePayment = async () => {
   
     try {
-      const res = await updateGoalAcumulated(id, result);
-      console.log('Resultado:', res);
+      const res = await updateGoalAcumulated(id, result, project);
+      console.log('Resultado:', res);      
       navigate('/loadingTransaction');
     } catch (error) {
       console.error('Error:', error);
@@ -102,7 +119,9 @@ export const PopUpDonation: FC<PopupProps> = ({ isOpen, onClose, image, category
             {
               !isChecked
                 ? <input className='text-primary mb-2' value={`$ ${selectedValue}`} />
-                : <input className='text-primary mb-2' ref={isChecked ? (input)=> input && input.focus() : null} onChange={onCheckboxChange}/>
+                : <><span className='text-primary mb-2 mr-1'>$</span><input type='number' className='text-primary mb-2' ref={isChecked ? (input)=> input && input.focus() : null} onChange={(e)=>{
+                  setSelectedValue(Number(e.target.value)); 
+                }}/></>
             }
             <hr />
             <fieldset className="flex justify-between mt-4">
